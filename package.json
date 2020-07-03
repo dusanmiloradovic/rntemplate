@@ -1,12 +1,11 @@
 {
     "main": "node_modules/expo/AppEntry.js",
     "scripts": {
-	"start": "shx cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js && expo start",
-	"start2": "expo start",
-	"android": "shx cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js && expo start --android",
-	"ios": "shx cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js && expo start --ios",
-	"web": "shx cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js && expo start --web",
-	"eject": "shx cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js && expo eject",
+	"start": "expo start",
+	"android": "expo start --android",
+	"ios": "expo start --ios",
+	"web": "expo start --web",
+	"eject": "expo eject",
 	"test": "jest --watchAll"
     },
     "jest": {

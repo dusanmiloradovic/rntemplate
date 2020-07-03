@@ -13,7 +13,7 @@ export default ({ loggedIn, setLoggedIn }) => (
       NavigationService.setTopLevelNavigator(navigatorRef);
     }}
   >
-    <Stack.Navigator intialRouteName="Main" headerMode="none">
+    <Stack.Navigator>
       {loggedIn ? (
         <>
           <Stack.Screen name="Main" component={MainTabNavigator} />

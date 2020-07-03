@@ -7,20 +7,24 @@ import {
   ActivityIndicator
 } from "react-native";
 import listTemplates from "./listTemplates";
+import { useNavigation } from "@react-navigation/native";
 
-class MPListItem extends PureComponent {
-  _onPress = () => {
-    this.props.rowAction(this.props.mxrow);
+const MPListItem = props => {
+  const navigation = useNavigation();
+  const ListTemplate = listTemplates[props.listTemplate];
+  const _onPress = () => {
+    props.rowAction(props.mxrow);
+    //props.navigation.navigate("Details");
+    if (props.navigate) {
+      props.navigate(navigation);
+    }
   };
-  render() {
-    const ListTemplate = listTemplates[this.props.listTemplate];
-    return (
-      <TouchableOpacity onPress={this._onPress}>
-        <ListTemplate {...this.props.data} />
-      </TouchableOpacity>
-    );
-  }
-}
+  return (
+    <TouchableOpacity onPress={_onPress}>
+      <ListTemplate {...props.data} />
+    </TouchableOpacity>
+  );
+};
 
 const MPList = props => {
   const [fetching, setFetching] = useState(null); //to prevent from excessive fetching
@@ -46,7 +50,11 @@ const MPList = props => {
       ListFooterComponent={FooterWait}
       data={props.data}
       renderItem={({ item }) => (
-        <MPListItem {...item} listTemplate={props.listTemplate} />
+        <MPListItem
+          {...item}
+          listTemplate={props.listTemplate}
+          navigate={props.navigate}
+        />
       )}
       onEndReached={ev => {
         //        console.log("end reached");

@@ -1,12 +1,16 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "react native mp example",
+    "slug": "rn_mp_example",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -21,8 +25,8 @@
     "ios": {
       "supportsTablet": true
     },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
+    "android": {
+      "package": "com.maximoplus.template"
     }
   }
 }

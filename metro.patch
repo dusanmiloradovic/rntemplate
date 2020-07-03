@@ -1,0 +1,16 @@
+--- workeroriginal.js	2019-09-17 22:44:13.164872852 +0400
++++ worker.js	2019-09-17 22:45:39.522291627 +0400
+@@ -269,7 +269,12 @@
+       }
+ 
+       if (!options.dev) {
+-        plugins.push([constantFoldingPlugin, opts]);
++        if (filename === "node_modules/maximoplus-core-native/main.js") {
++          console.log("Skipping for maximoplus core module");
++          console.log(filename);
++        } else {
++          plugins.push([constantFoldingPlugin, opts]);
++        }
+         plugins.push([inlinePlugin, opts]);
+       }
+ 

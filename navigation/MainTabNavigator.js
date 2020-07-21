@@ -9,6 +9,7 @@ import QbeSectionScreen from "../screens/QbeSectionScreen";
 import POListScreen from "../screens/POList";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
+import POQbeSection from "../screens/POQbeSection";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -50,6 +51,10 @@ export default () => (
   >
     <Tab.Screen name="List" component={POListScreen} />
     <Tab.Screen name="Details" component={SectionScreen} />
-    <Tab.Screen name="Search" component={QbeSectionScreen} />
+    <Tab.Screen
+      options={{ title: "Pretraga" }}
+      name="Search"
+      component={POQbeSection}
+    />
   </Tab.Navigator>
 );

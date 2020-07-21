@@ -67,9 +67,20 @@ The purpose of this component is to set navigation properties "buttons"
 the effect hook can be used just on the functional component like this, and thi
 */
 const QbeSectionWrapper = props => {
-  useEffect(() => {
-    props.navigation.setParams({ qbeButtons: props.buttons });
-  }, []);
+  // const navigation = useNavigation();
+  useEffect(
+    () => {
+      console.log("why useEffect not working?");
+      props.navigation.setOptions({
+        headerRight: () => (
+          <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+        )
+      });
+    },
+
+    []
+  );
+  console.log(props);
   return <ScrollView style={{ marginTop: 15 }}>{props.fields}</ScrollView>;
 };
 
@@ -107,19 +118,20 @@ const QbeSectionWrapper = props => {
  */
 export const QbeSection = getQbeSection(
   TextField,
-  (fields, buttons, props) => (
-    <QbeSectionWrapper fields={fields} buttons={buttons} {...props} />
-  ),
+  (fields, buttons, props) => {
+    console.log(props);
+    return <QbeSectionWrapper fields={fields} buttons={buttons} {...props} />;
+  },
   (buttons, props) => {
-    const navigation = useNavigation();
+    //    const navigation = useNavigation();
     const renderedButtons = buttons.map(b => {
       const action =
         b.key === "search"
           ? () => {
               if (props.navigateTo) {
-                navigation.navigate(props.navigateTo);
+                //                navigation.navigate(props.navigateTo);
               } else {
-                navigation.goBack();
+                //              navigation.goBack();
               }
               b.action();
             }

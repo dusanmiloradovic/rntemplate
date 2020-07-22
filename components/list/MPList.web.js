@@ -1,11 +1,22 @@
 import React, { useState, PureComponent } from "react";
 import MPListItem from "./MPListItem";
-import { FlatList, View, ActivityIndicator } from "react-native";
+import { FlatList, View, ActivityIndicator, Image } from "react-native";
 import { useInView } from "react-intersection-observer";
+import { useSetOptions } from "../../hooks";
 
+function LogoTitle() {
+  return (
+    <Image
+      style={{ height: "40px" }}
+      source={require("../../assets/images/color_logo_transparent_background.png")}
+    />
+  );
+}
 export default props => {
   const [fetching, setFetching] = useState(false); //to prevent from excessive fetching
-
+  useSetOptions({
+    headerTitle: props => <LogoTitle {...props} />
+  });
   const FooterLoader = () => {
     const [ref, inView, entry] = useInView();
 

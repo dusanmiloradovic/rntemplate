@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { getSection, getQbeSection } from "mplus-react";
 import { View, Text, ScrollView } from "react-native";
 import TextField from "./section/TextField";
@@ -6,7 +6,8 @@ import Picker from "./section/Picker";
 import { Button } from "react-native-elements";
 //import { withNavigation } from "react-navigation";
 import { useNavigation } from "@react-navigation/native";
-
+import { StackNavContext } from "../navigation/AppNavigator";
+import { useSetOptions } from "../hooks/";
 /**
  * Metadata type specifies the metadata for the component. The keys of the object are the column names in upper case, and the values are the object defined maps of metadata defined on the column.
  * @typedef {Object} Metadata
@@ -58,8 +59,36 @@ import { useNavigation } from "@react-navigation/native";
  *   }}
  * />
  */
+const InnerSection = ({ flds }) => {
+  useSetOptions({
+    headerTitle: "EHEJ!!!",
+    headerRight: () => (
+      <View style={{ flexDirection: "row", marginRight: "5px" }}>
+        <Button
+          onPress={() => alert("This is a button!")}
+          title="Info"
+          color="#fff"
+          type="clear"
+          style={{ marginRight: "5px" }}
+        />
+        <Button
+          onPress={() => alert("This is another button!")}
+          title="Info2"
+          color="#fff"
+          type="clear"
+        />
+      </View>
+    )
+  });
+  return <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>;
+};
+
+//export const Section = getSection(TextField, Picker, flds => (
+//  <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>
+//));
+
 export const Section = getSection(TextField, Picker, flds => (
-  <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>
+  <InnerSection flds={flds} />
 ));
 
 /*
@@ -68,19 +97,7 @@ the effect hook can be used just on the functional component like this, and thi
 */
 const QbeSectionWrapper = props => {
   // const navigation = useNavigation();
-  useEffect(
-    () => {
-      console.log("why useEffect not working?");
-      props.navigation.setOptions({
-        headerRight: () => (
-          <Button onPress={() => setCount(c => c + 1)} title="Update count" />
-        )
-      });
-    },
-
-    []
-  );
-  console.log(props);
+  useSetOptions({ headerTitle: "QBE??" });
   return <ScrollView style={{ marginTop: 15 }}>{props.fields}</ScrollView>;
 };
 

@@ -1,10 +1,20 @@
 import React, { useState, PureComponent } from "react";
 import MPListItem from "./MPListItem";
 import { FlatList, View, ActivityIndicator } from "react-native";
+import { useSetOptions } from "../../hooks";
 
 export default props => {
   const [fetching, setFetching] = useState(null); //to prevent from excessive fetching
-
+  useSetOptions({
+    headerTitle: "LISTA123",
+    headerStyle: {
+      backgroundColor: "#f4511e"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
+  });
   const FooterWait = () => {
     return props.waiting ? (
       <View

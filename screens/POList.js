@@ -14,17 +14,17 @@ export default props => {
   //  const navigation = useNavigation();
   const navigation = props.navigation;
   const { setOptions } = useContext(StackNavContext);
-  useFocusEffect(
-    React.useCallback(
-      () => {
-        setOptions({ headerTitle: "List" });
-        return () => {
-          setOptions(null);
-        };
-      },
-      [setOptions]
-    )
-  );
+  //  useFocusEffect(
+  //    React.useCallback(
+  //      () => {
+  //        setOptions({ headerTitle: "List" });
+  //        return () => {
+  //          setOptions(null);
+  //        };
+  //      },
+  //      [setOptions]
+  //    )
+  //  );
   return (
     <MaxList
       listTemplate="po"

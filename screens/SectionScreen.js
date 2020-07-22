@@ -6,18 +6,18 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default props => {
   const { setOptions } = useContext(StackNavContext);
-  useFocusEffect(
-    useCallback(
-      () => {
-        console.log("Section scresen focus effect");
-        setOptions({ headerTitle: "Section Screen 13" });
-        return () => {
-          setOptions(null);
-        };
-      },
-      [setOptions]
-    )
-  );
+  //  useFocusEffect(
+  //    useCallback(
+  //      () => {
+  //        console.log("Section scresen focus effect");
+  //        setOptions({ headerTitle: "Section Screen 13" });
+  //        return () => {
+  //          setOptions(null);
+  //        };
+  //      },
+  //      [setOptions]
+  //    )
+  //  );
 
   return (
     <Section

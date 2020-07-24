@@ -23,7 +23,7 @@ export default class extends Component {
     )
   };
   render() {
-    const d = this.props.navigation.getParam("dialog");
+    const d = this.props.route.params["dialog"];
     return (
       <MList
         norows={20}

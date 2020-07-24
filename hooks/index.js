@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavContext } from "../navigation/AppNavigator";
+import StackNavContext from "../navigation/StackNavContext";
 
 export const useSetOptions = options => {
   const navigation = useNavigation();

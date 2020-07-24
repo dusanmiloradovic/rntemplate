@@ -7,5 +7,15 @@ export default props => (
     columns={["ponum", "description", "status", "shipvia"]}
     navigate={navigation => navigation.navigate("List")}
     label="Search POs"
+    metadata={{
+      SHIPVIA: {
+        hasLookup: true,
+        listTemplate: "qbevaluelist"
+      },
+      STATUS: {
+        hasLookup: true,
+        listTemplate: "qbevaluelist"
+      }
+    }}
   />
 );

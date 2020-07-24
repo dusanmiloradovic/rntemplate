@@ -7,8 +7,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { setDialogHolder } from "./utils/utils";
 import Containers from "./Containers";
 import AppNavigator from "./navigation/AppNavigator";
-
+import StackNavContext from "./navigation/StackNavContext";
+import { NavigationContainer } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
+import { navigationRef } from "./navigation/NavigationService";
 
 import {
   setServerRoot,
@@ -57,6 +59,7 @@ export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [waitCursor, setWaitCursor] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
+  const [options, setOptions] = useState(null);
 
   loggerResolver(setLoggedIn);
   setGlobalWait(() => {
@@ -78,19 +81,27 @@ export default function App(props) {
   } else {
     return (
       <ContextPool rootContext={rootContext} initialSize={10} minimumFree={3}>
-        <Containers />
-        <DialogHolder
-          ref={dialogHolderRef => {
-            setDialogHolder(dialogHolderRef);
-          }}
-        />
-        <View style={styles.container}>
-          <Spinner visible={waitCursor} />
-          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+        <StackNavContext.Provider value={{ options, setOptions }}>
+          <NavigationContainer ref={navigationRef}>
+            <Containers />
+            <DialogHolder
+              ref={dialogHolderRef => {
+                setDialogHolder(dialogHolderRef);
+              }}
+            />
+            <View style={styles.container}>
+              <Spinner visible={waitCursor} />
+              {Platform.OS === "ios" && <StatusBar barStyle="default" />}
 
-          <AppNavigator setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
-          <FlashMessage position="bottom" />
-        </View>
+              <AppNavigator
+                setLoggedIn={setLoggedIn}
+                loggedIn={loggedIn}
+                options={options}
+              />
+              <FlashMessage position="bottom" />
+            </View>
+          </NavigationContainer>
+        </StackNavContext.Provider>
       </ContextPool>
     );
   }

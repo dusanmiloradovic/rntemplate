@@ -1,40 +1,23 @@
+import React from "react";
 import { CommonActions } from "@react-navigation/native";
 //StackActins will be used for the dialogs in this template
-let navigatorResolve = null;
-let navigatorReject = null;
-const _navigator = new Promise((resolve, reject) => {
-  navigatorResolve = resolve;
-  navigatorReject = reject;
-});
 
-function setTopLevelNavigator(navigatorRef) {
-  navigatorResolve(navigatorRef);
-}
-
-let dialognavigatorResolve = null;
-let dialognavigatorReject = null;
-const _dialognavigator = new Promise((resolve, reject) => {
-  dialognavigatorResolve = resolve;
-  dialognavigatorReject = reject;
-});
-
-function setDialogNavigator(navigatorRef) {
-  dialognavigatorResolve(navigatorRef);
-}
+export const navigationRef = React.createRef();
 
 function navigate(name, params) {
-  _navigator.then(navigator => {
-    //    navigator.dispatch(
-    //      CommonActions.navigate({
-    //        name,
-    //        params
-    //      })
-    //    )
-    setTimeout(() => {
-      console.log("navigate");
-      navigator.navigate(name, params);
-    }, 100);
-  });
+  //  _navigator.then(navigator => {
+  //    //    navigator.dispatch(
+  //    //      CommonActions.navigate({
+  //    //        name,
+  //    //        params
+  //    //      })
+  //    //    )
+  //    setTimeout(() => {
+  //      console.log("navigate");
+  //      navigator.navigate(name, params);
+  //    }, 100);
+  //  });
+  navigationRef.current.navigate(name, params);
 }
 
 //function push(name, params) {
@@ -45,22 +28,18 @@ function navigate(name, params) {
 
 function goBack() {
   //  _navigator.then(navigator => navigator.dispatch(NavigationActions.back({})));
-  _navigator.then(navigator => navigator.goBack());
+  navigationRef.current.goBack();
 }
 
-const dialogCounter = 0;
+let dialogCounter = 0;
 
 function openFirstDialog(dialogName, params) {
   //this will be called only when there are no displayed dialogs already
-  _navigator.then(navigator =>
-    navigator.navigate("Dialogs", { screen: dialogName, params })
-  );
+  navigationRef.current.navigate("Dialogs", { screen: dialogName, params });
 }
 
 function openNextDialog(dialogName, params) {
-  _dialognavigator.then(navigator => {
-    navigator.push(dialogName, params);
-  });
+  navigationRef.current.push(dialogName, params);
 }
 
 function openDialog(dialogName, params) {
@@ -86,9 +65,9 @@ function openDialog(dialogName, params) {
 function closeDialog(last) {
   //if the last dialog from the dialg stack has been closed, go back
   if (--dialogCounter === 0) {
-    _navigator.then(navigator => navigator.goBack());
+    navigationRef.current.then(navigator => navigator.goBack());
   } else {
-    _dialognavigator.then(navigator => navigator.pop());
+    navigationRef.current.then(navigator => navigator.pop());
   }
 }
 
@@ -100,7 +79,6 @@ function closeDialog(last) {
 
 export default {
   navigate,
-  setTopLevelNavigator,
   //push,
   //  pop,
   goBack,

@@ -59,26 +59,23 @@ import { useSetOptions } from "../hooks/";
  *   }}
  * />
  */
-const InnerSection = ({ flds }) => {
+const InnerSection = ({ flds, label, buttons }) => {
   useSetOptions({
-    headerTitle: "EHEJ!!!",
-    headerRight: () => (
-      <View style={{ flexDirection: "row", marginRight: "5px" }}>
-        <Button
-          onPress={() => alert("This is a button!")}
-          title="Info"
-          color="#fff"
-          type="clear"
-          style={{ marginRight: "5px" }}
-        />
-        <Button
-          onPress={() => alert("This is another button!")}
-          title="Info2"
-          color="#fff"
-          type="clear"
-        />
-      </View>
-    )
+    headerTitle: label,
+    headerRight: () =>
+      buttons ? (
+        <View style={{ flexDirection: "row", marginRight: "5px" }}>
+          {buttons.map(({ title, action }) => (
+            <Button
+              onPress={ev => action()}
+              title={title}
+              color="#fff"
+              type="clear"
+              style={{ marginRight: "5px" }}
+            />
+          ))}
+        </View>
+      ) : null
   });
   return <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>;
 };
@@ -87,18 +84,37 @@ const InnerSection = ({ flds }) => {
 //  <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>
 //));
 
-export const Section = getSection(TextField, Picker, flds => (
-  <InnerSection flds={flds} />
-));
+export const Section = getSection(
+  TextField,
+  Picker,
+  (flds, { label, buttons }) => <InnerSection flds={flds} label={label} />
+);
 
 /*
 The purpose of this component is to set navigation properties "buttons"
 the effect hook can be used just on the functional component like this, and thi
 */
-const QbeSectionWrapper = props => {
+const QbeSectionWrapper = ({ label, fields, buttons }) => {
   // const navigation = useNavigation();
-  useSetOptions({ headerTitle: "QBE??" });
-  return <ScrollView style={{ marginTop: 15 }}>{props.fields}</ScrollView>;
+  useSetOptions({
+    headerTitle: label,
+    headerRight: () =>
+      buttons ? (
+        <View style={{ flexDirection: "row", marginRight: "5px" }}>
+          {buttons.map(({ label, key, action }) => (
+            <Button
+              onPress={ev => action()}
+              title={label}
+              color="#fff"
+              key={key}
+              type="clear"
+              style={{ marginRight: "5px" }}
+            />
+          ))}
+        </View>
+      ) : null
+  });
+  return <ScrollView style={{ marginTop: 15 }}>{fields}</ScrollView>;
 };
 
 /**
@@ -136,7 +152,6 @@ const QbeSectionWrapper = props => {
 export const QbeSection = getQbeSection(
   TextField,
   (fields, buttons, props) => {
-    console.log(props);
     return <QbeSectionWrapper fields={fields} buttons={buttons} {...props} />;
   },
   (buttons, props) => {

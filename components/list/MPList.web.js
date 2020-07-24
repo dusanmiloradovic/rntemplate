@@ -1,29 +1,39 @@
-import React, { useState, PureComponent } from "react";
+import React, { useState, useRef } from "react";
 import MPListItem from "./MPListItem";
 import { FlatList, View, ActivityIndicator, Image } from "react-native";
 import { useInView } from "react-intersection-observer";
 import { useSetOptions } from "../../hooks";
 
-function LogoTitle() {
-  return (
-    <Image
-      style={{ height: "40px" }}
-      source={require("../../assets/images/color_logo_transparent_background.png")}
-    />
-  );
-}
 export default props => {
-  const [fetching, setFetching] = useState(false); //to prevent from excessive fetching
+  const [fetching, setFetching] = useState(null);
+  const footLoaderInvisible = useRef(null); //to prevent from excessive fetching
+  const currentDataCount = useRef(0);
+  const scrolled = useRef(false);
   useSetOptions({
-    headerTitle: props => <LogoTitle {...props} />
+    headerTitle: props.label
   });
-  const FooterLoader = () => {
+  const FooterLoader = ({ datalength }) => {
     const [ref, inView, entry] = useInView();
-
+    scrolled.current = false; //when re render
     if (inView && !fetching) {
-      setFetching(true);
-      props.fetchMore(5);
-      setTimeout(() => setFetching(false), 200);
+      if (fetching == null) {
+        setFetching(false);
+        return null;
+      }
+
+      requestAnimationFrame(_ => {
+        if (!scrolled.current || datalength === currentDataCount.current) {
+          return;
+        }
+
+        console.log(scrolled.current);
+        console.log("???");
+        // scrolled.current = false;
+        currentDataCount.current = datalength;
+        setFetching(true);
+        props.fetchMore(5);
+        setTimeout(() => setFetching(false), 200);
+      });
     }
     return (
       <div ref={ref} style={{ width: "100%", height: "50px" }}>
@@ -33,9 +43,14 @@ export default props => {
   };
 
   if (!props.data || props.data.length === 0) return null;
-  console.log(props);
+
   return (
-    <div style={{ height: "100%", width: "100%", overflowY: "scroll" }}>
+    <div
+      style={{ height: "100%", width: "100%", overflowY: "scroll" }}
+      onScroll={ev => {
+        scrolled.current = true;
+      }}
+    >
       <ul
         style={{
           marginBlockStart: "0px",
@@ -51,7 +66,7 @@ export default props => {
           />
         ))}
       </ul>
-      <FooterLoader />
+      <FooterLoader datalength={props.data.length} />
     </div>
   );
 };

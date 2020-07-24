@@ -6,15 +6,9 @@ import { useSetOptions } from "../../hooks";
 export default props => {
   const [fetching, setFetching] = useState(null); //to prevent from excessive fetching
   useSetOptions({
-    headerTitle: "LISTA123",
-    headerStyle: {
-      backgroundColor: "#f4511e"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold"
-    }
+    headerTitle: props.label
   });
+
   const FooterWait = () => {
     return props.waiting ? (
       <View
@@ -55,7 +49,7 @@ export default props => {
               props.fetchMore(5);
               setTimeout(() => {
                 setFetching(false);
-              }, 500);
+              }, 200);
             }
           }
         });

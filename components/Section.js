@@ -94,8 +94,8 @@ export const Section = getSection(
 The purpose of this component is to set navigation properties "buttons"
 the effect hook can be used just on the functional component like this, and thi
 */
-const QbeSectionWrapper = ({ label, fields, buttons }) => {
-  // const navigation = useNavigation();
+const QbeSectionWrapper = ({ label, fields, buttons, navigate }) => {
+  const navigation = useNavigation();
   useSetOptions({
     headerTitle: label,
     headerRight: () =>
@@ -103,7 +103,16 @@ const QbeSectionWrapper = ({ label, fields, buttons }) => {
         <View style={{ flexDirection: "row", marginRight: "5px" }}>
           {buttons.map(({ label, key, action }) => (
             <Button
-              onPress={ev => action()}
+              onPress={ev => {
+                if (key === "search") {
+                  if (navigate) {
+                    navigate(navigation);
+                  } else {
+                    navigation.goBack();
+                  }
+                }
+                action();
+              }}
               title={label}
               color="#fff"
               key={key}

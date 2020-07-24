@@ -5,8 +5,7 @@ export default props => (
   <QbeSection
     container="pocont"
     columns={["ponum", "description", "status", "shipvia"]}
-    navigateTo="List"
-    navigation={props.navigation}
+    navigate={navigation => navigation.navigate("List")}
     label="Search POs"
   />
 );

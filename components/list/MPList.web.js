@@ -26,9 +26,6 @@ export default props => {
           return;
         }
 
-        console.log(scrolled.current);
-        console.log("???");
-        // scrolled.current = false;
         currentDataCount.current = datalength;
         setFetching(true);
         props.fetchMore(5);
@@ -37,7 +34,13 @@ export default props => {
     }
     return (
       <div ref={ref} style={{ width: "100%", height: "50px" }}>
-        {fetching ? <ActivityIndicator animating size="large" /> : null}
+        {fetching ? (
+          <ActivityIndicator
+            animating
+            size="large"
+            style={{ marginTop: "10px" }}
+          />
+        ) : null}
       </div>
     );
   };

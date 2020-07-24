@@ -39,7 +39,8 @@ export default () => (
           <Ionicons
             name={iconName}
             size={size}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            //            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            color={color}
           />
         );
       }
@@ -52,7 +53,9 @@ export default () => (
     <Tab.Screen name="List" component={POListScreen} />
     <Tab.Screen name="Details" component={SectionScreen} />
     <Tab.Screen
-      options={{ title: "Pretraga" }}
+      options={{
+        title: "Search"
+      }}
       name="Search"
       component={POQbeSection}
     />

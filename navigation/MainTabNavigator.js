@@ -2,7 +2,6 @@ import React from "react";
 import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import TabBarIcon from "../components/TabBarIcon";
 import ListScreen from "../screens/ListScreen";
 import SectionScreen from "../screens/SectionScreen";
 import QbeSectionScreen from "../screens/QbeSectionScreen";

@@ -9,9 +9,13 @@ export default props => {
   const footLoaderInvisible = useRef(null); //to prevent from excessive fetching
   const currentDataCount = useRef(0);
   const scrolled = useRef(false);
-  useSetOptions({
-    headerTitle: props.label
-  });
+  useSetOptions(
+    props.options
+      ? props.options
+      : {
+          headerTitle: props.label
+        }
+  );
   const FooterLoader = ({ datalength }) => {
     const [ref, inView, entry] = useInView();
     scrolled.current = false; //when re render

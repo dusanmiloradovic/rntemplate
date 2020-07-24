@@ -1,5 +1,5 @@
 import React from "react";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, StackActions } from "@react-navigation/native";
 //StackActins will be used for the dialogs in this template
 
 export const navigationRef = React.createRef();
@@ -53,7 +53,7 @@ function openDialog(dialogName, params) {
 //function openDialog(dialogName, params) {
 //  _navigator.then(navigator =>
 //    navigator.dispatch(
-//      NavigationActions.navigate({
+//      CommonActions.navigate({
 //        routeName: "Dialogs",
 //        params: {},
 //        action: StackActions.push({ routeName: dialogName, params })
@@ -62,12 +62,17 @@ function openDialog(dialogName, params) {
 //  );
 //}
 
+//function openDialog(dialogName, params) {
+//  const pushAction = StackActions.push(dialogName, params);
+//  navigationRef.current.dispatch(pushAction);
+//}
+
 function closeDialog(last) {
   //if the last dialog from the dialg stack has been closed, go back
   if (--dialogCounter === 0) {
-    navigationRef.current.then(navigator => navigator.goBack());
+    navigationRef.current.goBack();
   } else {
-    navigationRef.current.then(navigator => navigator.pop());
+    navigationRef.current.pop();
   }
 }
 

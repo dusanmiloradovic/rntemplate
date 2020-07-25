@@ -59,24 +59,28 @@ import { useSetOptions } from "../hooks/";
  *   }}
  * />
  */
-const InnerSection = ({ flds, label, buttons }) => {
-  useSetOptions({
-    headerTitle: label,
-    headerRight: () =>
-      buttons ? (
-        <View style={{ flexDirection: "row", marginRight: "5px" }}>
-          {buttons.map(({ title, action }) => (
-            <Button
-              onPress={ev => action()}
-              title={title}
-              color="#fff"
-              type="clear"
-              style={{ marginRight: "5px" }}
-            />
-          ))}
-        </View>
-      ) : null
-  });
+const InnerSection = ({ flds, label, buttons, options }) => {
+  useSetOptions(
+    options
+      ? options
+      : {
+          headerTitle: label,
+          headerRight: () =>
+            buttons ? (
+              <View style={{ flexDirection: "row", marginRight: "5px" }}>
+                {buttons.map(({ title, action }) => (
+                  <Button
+                    onPress={ev => action()}
+                    title={title}
+                    color="#fff"
+                    type="clear"
+                    style={{ marginRight: "5px" }}
+                  />
+                ))}
+              </View>
+            ) : null
+        }
+  );
   return <ScrollView style={{ marginTop: 15 }}>{flds}</ScrollView>;
 };
 
@@ -87,7 +91,9 @@ const InnerSection = ({ flds, label, buttons }) => {
 export const Section = getSection(
   TextField,
   Picker,
-  (flds, { label, buttons }) => <InnerSection flds={flds} label={label} />
+  (flds, { label, buttons, options }) => (
+    <InnerSection flds={flds} label={label} options={options} />
+  )
 );
 
 /*

@@ -11,5 +11,6 @@ export default props => (
       appname="po"
       offlineenabled={false}
     />
+    <SingleMboContainer id="posingle" container="pocont" />
   </>
 );

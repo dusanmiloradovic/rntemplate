@@ -2,32 +2,35 @@ import React, { PureComponent } from "react";
 import HeaderActionButtons from "../components/HeaderActionButtons";
 import { closeDialog } from "../utils/utils";
 import { Text, View, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import { Platform } from "react-native";
+import { useSetOptions } from "../hooks";
 
-export default class extends PureComponent {
-  static navigationOptions = ({ navigation }) => {
-    const backButton = (
-      <HeaderActionButtons
-        buttons={[{ key: "close", label: "Back", action: closeDialog }]}
-        icons={{ close: "md-arrow-back" }}
+export default props => {
+  const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
+  const iconName = platformPrefix + "-arrow-back";
+  useSetOptions({
+    headerTitle: "Barcode Scan",
+    headerLeft: () => (
+      <Button
+        color="#fff"
+        onPress={closeDialog}
+        type="clear"
+        style={{ marginRight: "5px" }}
+        icon={<Ionicons style={{ padding: "3px" }} name={iconName} size={24} />}
       />
-    );
-    return {
-      headerTitle: <Text style={{ fontSize: 18 }}>Scan Barcode</Text>,
-      headerLeft: backButton,
-      headerStyle: { borderBottomWidth: 0 }
-    };
-  };
-  render() {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "flex-end"
-        }}
-      >
-        <Text>Barcode scanning not supported on web</Text>
-      </View>
-    );
-  }
-}
+    )
+  });
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
+      <Text>Barcode scanning not supported on web</Text>
+    </View>
+  );
+};

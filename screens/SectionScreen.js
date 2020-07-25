@@ -32,13 +32,18 @@ export default props => (
       "orderdate",
       "vendor",
       "vendor.phone",
-      "revcomments"
+      "revcomments",
+      "po9"
     ]}
     metadata={{
       SHIPVIA: {
         hasLookup: true,
         listTemplate: "valuelist"
-      }
+      },
+      "VENDOR.PHONE": {
+        phonenum: true
+      },
+      PO9: { barcode: true }
     }}
   />
 );

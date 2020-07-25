@@ -7,7 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 export default ({ date, isVisible, onConfirm, onCancel }) => (
   <Modal visible={isVisible}>
     <div
-      style={{ position: "absolute", top: "10px", right: "10px" }}
+      style={{ position: "absolute", top: 10, right: 10 }}
       onClick={onCancel}
     >
       <AntDesign name="close" size={24} color="black" />

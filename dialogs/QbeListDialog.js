@@ -32,10 +32,10 @@ export default props => {
             color="#fff"
             onPress={closeDialog}
             type="clear"
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: 5 }}
             icon={
               <Ionicons
-                style={{ marginRight: "6px" }}
+                style={{ marginRight: 6 }}
                 name={iconName}
                 size={24}
                 color="#2089dc"

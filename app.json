@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react native mp example",
-    "slug": "rn_mp_example",
+    "name": "react native mp template with example",
+    "slug": "rn_mp_template_with_example",
     "privacy": "public",
     "platforms": [
       "ios",

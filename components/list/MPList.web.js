@@ -37,13 +37,9 @@ export default props => {
       });
     }
     return (
-      <div ref={ref} style={{ width: "100%", height: "50px" }}>
+      <div ref={ref} style={{ width: "100%", height: 50 }}>
         {fetching ? (
-          <ActivityIndicator
-            animating
-            size="large"
-            style={{ marginTop: "10px" }}
-          />
+          <ActivityIndicator animating size="large" style={{ marginTop: 10 }} />
         ) : null}
       </div>
     );
@@ -60,9 +56,9 @@ export default props => {
     >
       <ul
         style={{
-          marginBlockStart: "0px",
-          marginBlockEnd: "0px",
-          padding: "0px"
+          marginBlockStart: 0,
+          marginBlockEnd: 0,
+          padding: 0
         }}
       >
         {props.data.map(item => (

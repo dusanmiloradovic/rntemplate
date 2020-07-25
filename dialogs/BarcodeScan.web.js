@@ -17,8 +17,8 @@ export default props => {
         color="#fff"
         onPress={closeDialog}
         type="clear"
-        style={{ marginRight: "5px" }}
-        icon={<Ionicons style={{ padding: "3px" }} name={iconName} size={24} />}
+        style={{ marginRight: 5 }}
+        icon={<Ionicons style={{ padding: 3 }} name={iconName} size={24} />}
       />
     )
   });

@@ -6,7 +6,6 @@ import Picker from "./section/Picker";
 import { Button } from "react-native-elements";
 //import { withNavigation } from "react-navigation";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavContext } from "../navigation/AppNavigator";
 import { useSetOptions } from "../hooks/";
 /**
  * Metadata type specifies the metadata for the component. The keys of the object are the column names in upper case, and the values are the object defined maps of metadata defined on the column.
@@ -67,14 +66,14 @@ const InnerSection = ({ flds, label, buttons, options }) => {
           headerTitle: label,
           headerRight: () =>
             buttons ? (
-              <View style={{ flexDirection: "row", marginRight: "5px" }}>
+              <View style={{ flexDirection: "row", marginRight: 5 }}>
                 {buttons.map(({ title, action }) => (
                   <Button
                     onPress={ev => action()}
                     title={title}
                     color="#fff"
                     type="clear"
-                    style={{ marginRight: "5px" }}
+                    style={{ marginRight: 5 }}
                   />
                 ))}
               </View>
@@ -106,7 +105,7 @@ const QbeSectionWrapper = ({ label, fields, buttons, navigate }) => {
     headerTitle: label,
     headerRight: () =>
       buttons ? (
-        <View style={{ flexDirection: "row", marginRight: "5px" }}>
+        <View style={{ flexDirection: "row", marginRight: 5 }}>
           {buttons.map(({ label, key, action }) => (
             <Button
               onPress={ev => {
@@ -123,7 +122,7 @@ const QbeSectionWrapper = ({ label, fields, buttons, navigate }) => {
               color="#fff"
               key={key}
               type="clear"
-              style={{ marginRight: "5px" }}
+              style={{ marginRight: 5 }}
             />
           ))}
         </View>

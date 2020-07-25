@@ -37,7 +37,7 @@ export default props => {
               <Ionicons
                 style={{ marginRight: "6px" }}
                 name={iconName}
-                size={15}
+                size={24}
                 color="#2089dc"
               />
             }

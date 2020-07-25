@@ -15,5 +15,11 @@ export default props => (
       "vendor.phone",
       "revcomments"
     ]}
+    metadata={{
+      SHIPVIA: {
+        hasLookup: true,
+        listTemplate: "valuelist"
+      }
+    }}
   />
 );

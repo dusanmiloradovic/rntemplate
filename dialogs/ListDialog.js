@@ -4,11 +4,6 @@ import { closeDialog } from "../utils/utils";
 import { Button } from "react-native-elements";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  HeaderButtons,
-  Item,
-  HeaderButton
-} from "react-navigation-header-buttons";
 
 export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
@@ -31,10 +26,8 @@ export default props => {
             color="#fff"
             onPress={closeDialog}
             type="clear"
-            style={{ marginRight: "5px" }}
-            icon={
-              <Ionicons style={{ padding: "3px" }} name={iconName} size={24} />
-            }
+            style={{ marginRight: 5 }}
+            icon={<Ionicons style={{ padding: 3 }} name={iconName} size={24} />}
           />
         )
       }}

@@ -5623,10 +5623,10 @@ modal-react-native-web@^0.2.0:
   dependencies:
     warning "^4.0.1"
 
-mplus-react@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/mplus-react/-/mplus-react-1.4.0.tgz#03398180779ba3ef9eaf298fb4819aa33251bcd3"
-  integrity sha512-XCa3+Ou5vnRnPSKKr7kHiILXPALwjc4YGwipBEh65OUzzPpvROa7xPWCToW83+WW5XmiNVQLFKVNLCHuSWsutw==
+mplus-react@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/mplus-react/-/mplus-react-1.4.1.tgz#55eaa14da3d0a3c10f8a4fce49153cb3dbbf8f2a"
+  integrity sha512-z7u+UL+LyrHzogOXuyVOdDVM1LOEVFvGTSxyGPxCx2ddMm0TJJHSmWhq5UMoWtl+ljp3FX6mkibgnlQzWMxcvw==
   dependencies:
     base64-arraybuffer "^0.2.0"
     flyd "^0.2.8"
@@ -6455,6 +6455,11 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
   integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
+
+react-native-popup-menu@^0.15.9:
+  version "0.15.9"
+  resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.15.9.tgz#75bccf71ff4627cb302d871a28be84a91eb2f8d9"
+  integrity sha512-PO99dptMocEfUSS3SM7gY6UqophaBxizKjnZ7FcEwa+H4ONVxTk310/JCXJ9vdNunomgpxHluKRXnApfm9Md1w==
 
 react-native-ratings@^7.2.0:
   version "7.2.0"

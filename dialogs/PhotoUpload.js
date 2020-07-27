@@ -1,11 +1,18 @@
-import React, { PureComponent, createRef } from "react";
+import React, {
+  PureComponent,
+  createRef,
+  useState,
+  useEffect,
+  useRef
+} from "react";
 import {
   Text,
   View,
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -14,6 +21,8 @@ import { closeDialog } from "../utils/utils";
 import { uploadFile, save } from "mplus-react";
 import HeaderActionButtons from "../components/HeaderActionButtons";
 import { showMessage, hideMessage } from "react-native-flash-message";
+import { useSetOptions } from "../hooks";
+import { Button } from "react-native-elements";
 
 const styles = StyleSheet.create({
   uploading: {
@@ -30,7 +39,205 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class extends PureComponent {
+export default props => {
+  const CameraRef = useRef();
+  const takePicture = () => {
+    if (CameraRef.current) {
+      CameraRef.current.takePictureAsync({
+        onPictureSaved: this.onPictureSaved
+      });
+      setDisplayShootButton(false);
+    }
+  };
+  const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
+  const [hasCameraPermission, setCameraPermission] = useState(null);
+  const [photoUri, setPhotoUri] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [displayShootButton, setDisplayShootButton] = useState(true);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [uploadReady, setUploadReady] = useState(false);
+  const { container, uploadAction, takeAgain } = props.route.params["dialog"];
+  useEffect(async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    setCameraPermission(status === "granted");
+  }, []);
+
+  const backButton = () => (
+    <Button
+      color="#fff"
+      onPress={closeDialog}
+      type="clear"
+      style={{ marginRight: 5 }}
+      icon={
+        <Ionicons
+          style={{ padding: 3 }}
+          name={platformPrefix + "-arrow-back"}
+          size={24}
+        />
+      }
+    />
+  );
+
+  const headerRightButtons = () => (
+    <View style={{ flexDirection: "row", marginRight: 5 }}>
+      <Button
+        title="Upload"
+        key="upload"
+        color="white"
+        type="clear"
+        style={{ marginRight: 5 }}
+        onPress={uploadAction}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            size={24}
+            color="white"
+            icon={platformPrefix + "-cloud-upload"}
+          />
+        }
+      />
+      <Button
+        title="Shoot Again"
+        key="shootagain"
+        color="white"
+        type="clear"
+        style={{ marginRight: 5 }}
+        onPress={takeAgain}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            size={24}
+            color="white"
+            icon={platformPrefix + "-camera"}
+          />
+        }
+      />
+      <Button
+        title="Reverse Camera"
+        key="reversecamera"
+        color="white"
+        type="clear"
+        style={{ marginRight: 5 }}
+        onPress={flip}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            size={24}
+            color="white"
+            icon={platformPrefix + "-reverseCamera"}
+          />
+        }
+      />
+    </View>
+  );
+
+  useSetOptions(
+    uploadReady
+      ? {
+          headerTitle: (
+            <Text style={{ color: "white", fontSize: 18 }}>Upload</Text>
+          ),
+          headerTransparent: true,
+          headerLeft: backButton,
+          headerStyle: { borderBottomWidth: 0 },
+          headerRight: headerRightButtons
+        }
+      : {
+          headerTitle: (
+            <Text style={{ color: "white", fontSize: 18 }}>Take Picture</Text>
+          ),
+          headerLeft: backButton,
+          headerTransparent: true,
+          headerStyle: { borderBottomWidth: 0 },
+          headerRight: headerRightButtons
+        }
+  );
+  const upload = () => {
+    const fileName = photoUri.substr(photoUri.lastIndexOf("/") + 1);
+    const file = {
+      name: fileName,
+      uri: photoUri,
+      type: "image/jpeg"
+    };
+    setUploading(true);
+
+    uploadFile(container, "doclinks", file, "Photos")
+      .then(() => {
+        save(container);
+        setUploading(false);
+        showMessage("Photo uploaded");
+        closeDialog();
+      })
+      .catch(err => {
+        setUploading(false);
+        alert(err);
+      });
+  };
+
+  const flip = () => {
+    setType(
+      type === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+  };
+
+  const onPictureSaved = async photo => {
+    setPhotoUri(photo.uri);
+    setDisplayShootButton(true);
+  };
+
+  if (hasCameraPermission === null) {
+    return <View />;
+  } else if (hasCameraPermission === false) {
+    return <Text>No access to camera</Text>;
+  } else {
+    if (photoUri) {
+      return (
+        <View style={{ flex: 1 }}>
+          <Image style={{ flex: 1 }} source={{ uri: photoUri }} />
+          {uploading && (
+            <View style={styles.uploading}>
+              <ActivityIndicator size="large" />
+            </View>
+          )}
+        </View>
+      );
+    }
+    const shootButton = displayShootButton ? (
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          alignSelf: "flex-end",
+          alignItems: "center"
+        }}
+        onPress={takePicture}
+      >
+        <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+          <Ionicons name="ios-radio-button-on" size={70} color="white" />
+        </Text>
+      </TouchableOpacity>
+    ) : null;
+
+    return (
+      <View style={{ flex: 1 }}>
+        <Camera style={{ flex: 1 }} type={type} ref={CameraRef}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              flexDirection: "row"
+            }}
+          >
+            {shootButton}
+          </View>
+        </Camera>
+      </View>
+    );
+  }
+};
+
+class Old extends PureComponent {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,

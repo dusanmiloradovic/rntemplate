@@ -157,13 +157,12 @@ export default props => {
       alert("No photo yet taken");
       return;
     }
-    const fileName = photoUri.current.substr(
-      photoUri.current.lastIndexOf("/") + 1
-    );
+
     let file = null;
-    const fileType = photoUri.current.match(/data:(.*);/)[1];
-    const fileExtension = fileType.substr(fileType.lastIndexOf("/") + 1);
+
     if (Platform.OS === "web") {
+      const fileType = photoUri.current.match(/data:(.*);/)[1];
+      const fileExtension = fileType.substr(fileType.lastIndexOf("/") + 1);
       const rawImageData = photoUri.current.replace(
         /^data:image\/\w+;base64,/,
         ""
@@ -172,6 +171,11 @@ export default props => {
       const fileName = "IMG-" + new Date().valueOf() + "." + fileExtension;
       file = new File([arrayBuf], fileName, { type: fileType });
     } else {
+      const fileName = photoUri.current.substr(
+        photoUri.current.lastIndexOf("/") + 1
+      );
+      const fileType =
+        "image/" + fileName.substr(fileName.lastIndexOf(".") + 1);
       file = {
         name: fileName,
         uri: photoUri.current,

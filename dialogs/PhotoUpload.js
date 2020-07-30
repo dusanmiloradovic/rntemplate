@@ -23,6 +23,7 @@ import HeaderActionButtons from "../components/HeaderActionButtons";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { useSetOptions } from "../hooks";
 import { Button } from "react-native-elements";
+import { decode } from "base64-arraybuffer";
 
 const styles = StyleSheet.create({
   uploading: {
@@ -42,8 +43,6 @@ const styles = StyleSheet.create({
 export default props => {
   const CameraRef = useRef();
   const takePicture = () => {
-    console.log("taking the picture");
-    console.log(CameraRef.current);
     if (CameraRef.current) {
       CameraRef.current.takePictureAsync({
         onPictureSaved
@@ -54,17 +53,24 @@ export default props => {
   };
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
   const [hasCameraPermission, setCameraPermission] = useState(null);
-  const [photoUri, setPhotoUri] = useState(null);
+  const photoUri = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [displayShootButton, setDisplayShootButton] = useState(true);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [uploadReady, setUploadReady] = useState(false);
-  const { container, uploadAction, takeAgain } = props.route.params["dialog"];
+  //  const { container, uploadAction, takeAgain } = props.route.params["dialog"];
+  const { container } = props.route.params["dialog"];
   useEffect(() => {
     Permissions.askAsync(Permissions.CAMERA).then(({ status }) =>
       setCameraPermission(status === "granted")
     );
   }, []);
+
+  const takeAgain = () => {
+    setUploading(false);
+    photoUri.current = null;
+    setDisplayShootButton(true);
+  };
 
   const backButton = () => (
     <Button
@@ -90,7 +96,9 @@ export default props => {
         color="white"
         type="clear"
         style={{ marginRight: 5 }}
-        onPress={uploadAction}
+        onPress={ev => {
+          upload(photoUri.current);
+        }}
         icon={
           <Ionicons
             style={{ padding: 3 }}
@@ -145,12 +153,31 @@ export default props => {
     headerRight: headerRightButtons
   });
   const upload = () => {
-    const fileName = photoUri.substr(photoUri.lastIndexOf("/") + 1);
-    const file = {
-      name: fileName,
-      uri: photoUri,
-      type: "image/jpeg"
-    };
+    if (!photoUri.current) {
+      alert("No photo yet taken");
+      return;
+    }
+    const fileName = photoUri.current.substr(
+      photoUri.current.lastIndexOf("/") + 1
+    );
+    let file = null;
+    const fileType = photoUri.current.match(/data:(.*);/)[1];
+    const fileExtension = fileType.substr(fileType.lastIndexOf("/") + 1);
+    if (Platform.OS === "web") {
+      const rawImageData = photoUri.current.replace(
+        /^data:image\/\w+;base64,/,
+        ""
+      );
+      const arrayBuf = decode(rawImageData);
+      const fileName = "IMG-" + new Date().valueOf() + "." + fileExtension;
+      file = new File([arrayBuf], fileName, { type: fileType });
+    } else {
+      file = {
+        name: fileName,
+        uri: photoUri.current,
+        type: fileType
+      };
+    }
     setUploading(true);
 
     uploadFile(container, "doclinks", file, "Photos")
@@ -175,8 +202,7 @@ export default props => {
   };
 
   const onPictureSaved = async photo => {
-    console.log("on picture saved");
-    setPhotoUri(photo.uri);
+    photoUri.current = photo.uri;
     setDisplayShootButton(true);
   };
 
@@ -185,11 +211,10 @@ export default props => {
   } else if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   } else {
-    if (photoUri) {
-      console.log(photoUri);
+    if (photoUri.current) {
       return (
         <View style={{ flex: 1 }}>
-          <Image style={{ flex: 1 }} source={{ uri: photoUri }} />
+          <Image style={{ flex: 1 }} source={{ uri: photoUri.current }} />
           {uploading && (
             <View style={styles.uploading}>
               <ActivityIndicator size="large" />

@@ -13,9 +13,7 @@ import OfflineError from "../dialogs/OfflineErrorDialog";
 const Stack = createStackNavigator();
 
 export default props => (
-  <Stack.Navigator
-    ref={navigatorRef => NavigationService.setDialogNavigator(navigatorRef)}
-  >
+  <Stack.Navigator>
     <Stack.Screen name="list" component={ListDialog} title="Select a value" />
     <Stack.Screen
       name="qbelist"

@@ -1,44 +1,107 @@
-import React, { PureComponent } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { getDocumentAsync } from "expo-document-picker";
 import { Button, ListItem, Icon } from "react-native-elements";
-import { View, TouchableOpacity, FlatList } from "react-native";
+import { View, TouchableOpacity, FlatList, Platform } from "react-native";
 import { closeDialog } from "../utils/utils";
-import HeaderActionButtons from "../components/HeaderActionButtons";
-import { uploadFile, save } from "mplus-react";
 
-export default class extends PureComponent {
-  state = {
-    files: []
+import { uploadFile, save } from "mplus-react";
+import { useSetOptions } from "../hooks";
+import { Ionicons } from "@expo/vector-icons";
+import StackNavContext from "../navigation/StackNavContext";
+
+const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
+
+export default props => {
+  const [files, setFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const existFiles = useRef(false);
+  const { setOptions } = useContext(StackNavContext);
+  const firstRun = useRef(true);
+
+  const uf = () => {
+    setOptions({
+      headerTitle: "Upload Documents",
+      headerLeft: () => (
+        <Button
+          color="#fff"
+          onPress={closeDialog}
+          type="clear"
+          style={{ marginRight: 5 }}
+          icon={
+            <Ionicons
+              style={{ padding: 3 }}
+              name={platformPrefix + "-arrow-back"}
+              size={24}
+            />
+          }
+        />
+      ),
+      headerRight: () =>
+        files.length > 0 ? (
+          <Button
+            key="upload"
+            type="clear"
+            style={{ marginRight: 5 }}
+            onPress={uploadDocuments}
+            icon={
+              <Ionicons
+                style={{ padding: 3 }}
+                size={24}
+                name={platformPrefix + "-cloud-upload"}
+              />
+            }
+          />
+        ) : null
+    });
   };
-  static navigationOptions = ({ navigation }) => {
-    const uploadDocuments = navigation.getParam("uploadDocuments");
-    let buttonsData = [{ key: "close", label: "Close", action: closeDialog }];
-    if (
-      navigation.getParam("existFiles") &&
-      !navigation.getParam("uploading")
-    ) {
-      buttonsData = [
-        { key: "upload", label: "Upload", action: uploadDocuments },
-        ...buttonsData
-      ];
+  useEffect(uf, [files]);
+
+  setTimeout(() => {
+    if (firstRun.current) {
+      firstRun.current = false;
+      uf();
     }
-    const icons = {
-      upload: "md-cloud-upload"
-    };
-    const headerRightButtons = (
-      <HeaderActionButtons buttons={buttonsData} icons={icons} />
-    );
-    return { headerTitle: "Upload Documents", headerRight: headerRightButtons };
+  }, 0);
+
+  const uploadDocuments = async () => {
+    const { container, folder } = props.route.params["dialog"];
+    setUploading(true);
+    for (let j = 0; j < files.length; j++) {
+      const fileItem = files[j];
+      const file =
+        Platform.OS == "web"
+          ? fileItem.file
+          : {
+              name: fileItem.name,
+              uri: fileItem.uri,
+              type: "application/octet-stream"
+            };
+      try {
+        fileItem.status = "uploading";
+        const uploaded = await uploadFile(container, "doclinks", file, folder);
+        fileItem.status = "uploaded";
+      } catch (e) {
+        fileItem.status = "error";
+      }
+      const newFiles = [...files];
+      newFiles[j] = fileItem;
+      setFiles(newFiles);
+
+      save(container);
+    }
+    setUploading(false);
   };
-  fileKeyExtractor = (item, index) => item.uri;
-  renderFileItem = ({ item, index }) => {
+
+  const fileKeyExtractor = (item, index) => item.uri;
+
+  const renderFileItem = ({ item, index }) => {
     const delAction = () => {
-      let copiedState = [...this.state.files];
+      let copiedState = [...files];
       copiedState.splice(index, 1);
-      this.setState({ files: copiedState });
+      setFiles(copiedState);
     };
-    let iconName = this.state.uploading ? null : "md-trash";
-    let fileAction = this.state.uploading ? null : delAction;
+    let iconName = uploading ? null : "md-trash";
+    let fileAction = uploading ? null : delAction;
     let iconColor = null;
     if (item.status == "uploading") {
       iconName = "md-hourglass";
@@ -64,58 +127,23 @@ export default class extends PureComponent {
     );
     return <ListItem title={item.name} bottomDivider rightIcon={rightIcon} />;
   };
-  render() {
-    //    console.log("Uploading = " + this.state.uploading);
-    return (
-      <View>
-        <FlatList
-          data={this.state.files}
-          renderItem={this.renderFileItem}
-          keyExtractor={this.fileJeyExtractor}
-        />
-        {this.state.uploading ? null : (
-          <Button onPress={this.readDocument} title="Choose a document" />
-        )}
-      </View>
-    );
-  }
-  componentDidMount() {
-    this.props.navigation.setParams({ uploadDocuments: this.uploadDocuments });
-  }
-  readDocument = async () => {
+
+  const readDocument = async () => {
     const picked = await getDocumentAsync();
     if (picked.type != "cancel") {
-      this.setState({ files: [...this.state.files, picked] });
-      this.props.navigation.setParams({ existFiles: true });
+      setFiles([...files, picked]);
     }
   };
-  uploadDocuments = async () => {
-    const { container, folder } = this.props.navigation.getParam("dialog");
-    this.setState({ uploading: true });
-    this.props.navigation.setParams({ uploading: true });
-    const files = this.state.files;
-    for (let j = 0; j < files.length; j++) {
-      const fileItem = files[j];
-      const file = {
-        name: fileItem.name,
-        uri: fileItem.uri,
-        type: "application/octet-stream"
-      };
-      try {
-        const newState = [...this.state.files];
-        fileItem.status = "uploading";
-        this.setState({ files: newState });
-        const uploaded = await uploadFile(container, "doclinks", file, folder);
-        fileItem.status = "uploaded";
-      } catch (e) {
-        fileItem.status = "error";
-      }
-      const newState = [...this.state.files];
-      newState[j] = fileItem;
-      this.setState({ files: newState });
-      this.props.navigation.setParams({ uploading: false });
-      save(container);
-    }
-    this.setState({ uploading: false });
-  };
-}
+  return (
+    <View>
+      <FlatList
+        data={files}
+        renderItem={renderFileItem}
+        keyExtractor={fileKeyExtractor}
+      />
+      {uploading ? null : (
+        <Button onPress={readDocument} title="Choose a document" />
+      )}
+    </View>
+  );
+};

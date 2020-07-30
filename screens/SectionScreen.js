@@ -4,7 +4,7 @@ import { save } from "mplus-react";
 import { Button } from "react-native-elements";
 import { View, Platform } from "react-native";
 import MoreButton from "../components/MoreButton";
-import { openPhotoUpload } from "../utils/utils";
+import { openPhotoUpload, openDocumentUpload } from "../utils/utils";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
@@ -33,9 +33,9 @@ export default props => (
                 action: ev => openPhotoUpload("posingle")
               },
               {
-                label: "Action11 12 13 a i 14",
+                label: "Document Upload",
                 icon: "cloud-upload",
-                action: () => alert("juja")
+                action: () => openDocumentUpload("posingle", "Attachments")
               }
             ]}
           />

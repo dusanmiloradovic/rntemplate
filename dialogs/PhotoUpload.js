@@ -19,7 +19,6 @@ import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import { closeDialog } from "../utils/utils";
 import { uploadFile, save } from "mplus-react";
-import HeaderActionButtons from "../components/HeaderActionButtons";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { useSetOptions } from "../hooks";
 import { Button } from "react-native-elements";

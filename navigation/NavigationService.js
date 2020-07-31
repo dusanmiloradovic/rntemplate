@@ -96,12 +96,6 @@ function closeDialog(last) {
   delete navigationProps.staleId;
 }
 
-//function pop() {
-//  _navigator.then(navigator => navigator.dispatch(StackActions.pop({ n: 1 })));
-//}
-
-// add other navigation functions that you need and export them
-
 export default {
   navigate,
   //push,

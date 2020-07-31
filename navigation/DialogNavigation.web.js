@@ -5,7 +5,7 @@ import QbeListDialog from "../dialogs/QbeListDialog";
 import WorkflowDialog from "../dialogs/WorkflowDialog";
 import PhotoUpload from "../dialogs/PhotoUpload";
 import DocumentUpload from "../dialogs/DocumentUploader";
-//import DocumentViewer from "../dialogs/DocumentViewer";
+import DocumentViewer from "../dialogs/DocumentViewer";
 import BarcodeScan from "../dialogs/BarcodeScan";
 import OfflineError from "../dialogs/OfflineErrorDialog";
 import TestDialog from "../dialogs/TestDialog";
@@ -26,5 +26,6 @@ export default () => (
     <Stack.Screen name="photoUpload" component={PhotoUpload} />
     <Stack.Screen name="documentUpload" component={DocumentUpload} />
     <Stack.Screen name="testDialog" component={TestDialog} />
+    <Stack.Screen name="documentViewer" component={DocumentViewer} />
   </Stack.Navigator>
 );

@@ -43,7 +43,7 @@ export default props => (
               },
               {
                 label: "Test dialog",
-                action: () => openDialog({ type: "testDialog" })
+                action: () => openDialog({ type: "documentViewer" })
               }
             ]}
           />

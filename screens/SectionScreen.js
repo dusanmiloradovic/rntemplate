@@ -7,7 +7,8 @@ import MoreButton from "../components/MoreButton";
 import {
   openPhotoUpload,
   openDocumentUpload,
-  openDialog
+  openDialog,
+  openDocumentViewer
 } from "../utils/utils";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
@@ -42,8 +43,9 @@ export default props => (
                 action: ev => openPhotoUpload("posingle")
               },
               {
-                label: "Test dialog",
-                action: () => openDialog({ type: "documentViewer" })
+                label: "Documents",
+                icon: "book",
+                action: () => openDocumentViewer("posingle")
               }
             ]}
           />

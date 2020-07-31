@@ -51,12 +51,12 @@ export default props => {
         fileExt
       ) != -1;
     setIsImage(_isImage);
-    const dlURL = await getDownloadURL("doclinks", "doclinksredirect");
-    const newDLURL = await fetch(dlURL, { credentials: "include" });
-    c;
-    const dlTxt =
-      getServerRoot() + "/" + (await newDLURL.text()) + "?ver=" + Date.now();
-    setFile(dlTxt);
+    const dlURL = await getDownloadURL("doclinks");
+    //    const newDLURL = await fetch(dlURL, { credentials: "include" });
+
+    //  const dlTxt =
+    //  getServerRoot() + "/" + (await newDLURL.text()) + "?ver=" + Date.now();
+    setFile(dlURL);
   };
 
   let comp = null;

@@ -58,7 +58,14 @@ function openFirstDialog(dialogName, params) {
 }
 
 function openNextDialog(dialogName, params) {
-  navigationRef.current.push(dialogName, params);
+  //    navigationRef.current.push({ screen: dialogName, params });
+  navigationRef.current.dispatch(
+    CommonActions.navigate({
+      name: "Dialogs",
+      params: {},
+      action: StackActions.push({ screen: dialogName, params })
+    })
+  );
 }
 
 function openDialog(dialogName, params) {
@@ -72,29 +79,18 @@ function openDialog(dialogName, params) {
   }
 }
 
-//function openDialog(dialogName, params) {
-//  _navigator.then(navigator =>
-//    navigator.dispatch(
-//      CommonActions.navigate({
-//        routeName: "Dialogs",
-//        params: {},
-//        action: StackActions.push({ routeName: dialogName, params })
-//      })
-//    )
-//  );
-//}
-
-//function openDialog(dialogName, params) {
-//  const pushAction = StackActions.push(dialogName, params);
-//  navigationRef.current.dispatch(pushAction);
-//}
-
 function closeDialog(last) {
   //if the last dialog from the dialg stack has been closed, go back
   if (--dialogCounter === 0) {
     navigationRef.current.goBack();
   } else {
-    navigationRef.current.pop();
+    navigationRef.current.dispatch(
+      CommonActions.navigate({
+        name: "Dialogs",
+        params: {},
+        action: StackActions.pop()
+      })
+    );
   }
   const staleId = navigationPropIdsStack.pop();
   delete navigationProps.staleId;

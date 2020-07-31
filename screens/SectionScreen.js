@@ -4,7 +4,11 @@ import { save } from "mplus-react";
 import { Button } from "react-native-elements";
 import { View, Platform } from "react-native";
 import MoreButton from "../components/MoreButton";
-import { openPhotoUpload, openDocumentUpload } from "../utils/utils";
+import {
+  openPhotoUpload,
+  openDocumentUpload,
+  openDialog
+} from "../utils/utils";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
@@ -36,6 +40,10 @@ export default props => (
                 label: "Photo",
                 icon: "camera",
                 action: ev => openPhotoUpload("posingle")
+              },
+              {
+                label: "Test dialog",
+                action: () => openDialog({ type: "testDialog" })
               }
             ]}
           />

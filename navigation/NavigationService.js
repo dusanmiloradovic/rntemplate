@@ -4,6 +4,25 @@ import { CommonActions, StackActions } from "@react-navigation/native";
 
 export const navigationRef = React.createRef();
 
+export const navigationProps = {};
+//React Navigation serializes the props, and the dialogs contain data coming from MaximoPlus core framework,
+//that is not serializable and affects the performance. The navigation data will be stored temporarily here
+
+export const navigationPropIdsStack = []; //this is used to clean up the navigationProps once the dialog is closed
+
+export const getDialogProps = route => {
+  const paramId = route.params["paramId"];
+  return navigationProps[paramId] && navigationProps[paramId]["dialog"];
+};
+
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 function navigate(name, params) {
   //  _navigator.then(navigator => {
   //    //    navigator.dispatch(
@@ -43,10 +62,13 @@ function openNextDialog(dialogName, params) {
 }
 
 function openDialog(dialogName, params) {
+  const paramId = uuidv4();
+  navigationProps[paramId] = params;
+  navigationPropIdsStack.push(paramId);
   if (dialogCounter++ === 0) {
-    openFirstDialog(dialogName, params);
+    openFirstDialog(dialogName, { paramId });
   } else {
-    openNextDialog(dialogName, params);
+    openNextDialog(dialogName, { paramId });
   }
 }
 
@@ -74,6 +96,8 @@ function closeDialog(last) {
   } else {
     navigationRef.current.pop();
   }
+  const staleId = navigationPropIdsStack.pop();
+  delete navigationProps.staleId;
 }
 
 //function pop() {

@@ -8,6 +8,7 @@ import { useSetOptions } from "../hooks";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
+import { getDialogProps } from "../navigation/NavigationService";
 
 export default props => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -35,7 +36,7 @@ export default props => {
   });
 
   const handleBarCodeScanned = ({ type, data }) => {
-    const { onScan } = props.route.params["dialog"];
+    const { onScan } = getDialogProps(props.route);
     if (onScan && typeof onScan === "function") {
       onScan(data);
     }

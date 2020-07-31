@@ -4,11 +4,12 @@ import { closeDialog } from "../utils/utils";
 import { Button } from "react-native-elements";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { getDialogProps } from "../navigation/NavigationService";
 
 export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
   const iconName = platformPrefix + "-arrow-back";
-  const d = props.route.params["dialog"];
+  const d = getDialogProps(props.route);
   return (
     <MList
       norows={20}

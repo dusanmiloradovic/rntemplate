@@ -6,6 +6,7 @@ import PDFReader from "rn-pdf-reader-js";
 import HeaderActionButtons from "../components/HeaderActionButtons";
 import { closeDialog } from "../utils/utils";
 import { SERVER_ROOT } from "react-native-dotenv";
+import { getDialogProps } from "../navigation/NavigationService";
 
 export default class extends PureComponent {
   state = { file: null, fileType: null, isImage: false, isPdf: false };
@@ -18,7 +19,7 @@ export default class extends PureComponent {
     };
   };
   render() {
-    const { container } = this.props.navigation.getParam("dialog");
+    const { container } = getDialogProps(this.props.route);
     let ret = null;
     if (this.state.file == null) {
       ret = (

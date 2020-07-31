@@ -23,6 +23,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 import { useSetOptions } from "../hooks";
 import { Button } from "react-native-elements";
 import { decode } from "base64-arraybuffer";
+import { getDialogProps } from "../navigation/NavigationService";
 
 const styles = StyleSheet.create({
   uploading: {
@@ -58,7 +59,8 @@ export default props => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [uploadReady, setUploadReady] = useState(false);
   //  const { container, uploadAction, takeAgain } = props.route.params["dialog"];
-  const { container } = props.route.params["dialog"];
+  const d = getDialogProps(props.route);
+  const { container } = getDialogProps(props.route);
   useEffect(() => {
     Permissions.askAsync(Permissions.CAMERA).then(({ status }) =>
       setCameraPermission(status === "granted")

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Platform } from "react-native";
+import { Button } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
 import { closeDialog } from "../utils/utils";
 import listTemplates from "../components/listTemplates";
+import { getDialogProps } from "../navigation/NavigationService";
+import { useSetOptions } from "../hooks";
 
 import {
   HeaderButtons,
@@ -9,25 +13,35 @@ import {
   HeaderButton
 } from "react-navigation-header-buttons";
 
-export default class extends Component {
-  static navigationOptions = {
-    headerTitle: "Offline failures",
-    headerRight: (
-      <HeaderButtons>
-        <Item onPress={closeDialog} title="Close" />
-      </HeaderButtons>
-    )
-  };
+const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
-  render() {
-    const { errors } = this.props.navigation.getParam("dialog");
-    const ErrorTemplate = listTemplates.offlineErrors;
-    return (
-      <FlatList
-        data={errors}
-        renderItem={({ item }) => <ErrorTemplate {...item} />}
-        keyExtractor={item => item.id}
+export default props => {
+  const { errors } = getDialogProps(props.route);
+  const ErrorTemplate = listTemplates.offlineErrors;
+  useSetOptions({
+    headerTitle: "Offline Errors",
+    headerLeft: () => (
+      <Button
+        color="#fff"
+        onPress={closeDialog}
+        type="clear"
+        style={{ marginRight: 5 }}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            name={platformPrefix + "-arrow-back"}
+            color="white"
+            size={24}
+          />
+        }
       />
-    );
-  }
-}
+    )
+  });
+  return (
+    <FlatList
+      data={errors}
+      renderItem={({ item }) => <ErrorTemplate {...item} />}
+      keyExtractor={item => item.id}
+    />
+  );
+};

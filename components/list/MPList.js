@@ -5,9 +5,13 @@ import { useSetOptions } from "../../hooks";
 
 export default props => {
   const [fetching, setFetching] = useState(null); //to prevent from excessive fetching
-  useSetOptions({
-    headerTitle: props.label
-  });
+  useSetOptions(
+    props.options
+      ? props.options
+      : {
+          headerTitle: props.label
+        }
+  );
 
   const FooterWait = () => {
     return props.waiting ? (

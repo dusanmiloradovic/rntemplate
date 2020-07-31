@@ -5,6 +5,7 @@ import { closeDialog } from "../utils/utils";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
+import { getDialogProps } from "../navigation/NavigationService";
 
 /*
 Except for the title, the component is exactly the same as the ListDialog (qbe parts will be handled by framework. Copy/paste approach to demonstrate simplicity, you can choose the other if you want
@@ -13,7 +14,8 @@ Except for the title, the component is exactly the same as the ListDialog (qbe p
 export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
   const iconName = platformPrefix + "-arrow-back";
-  const d = props.route.params["dialog"];
+  const d = getDialogProps(props.route);
+
   return (
     <MList
       norows={20}

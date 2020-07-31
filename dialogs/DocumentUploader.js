@@ -8,6 +8,7 @@ import { uploadFile, save } from "mplus-react";
 import { useSetOptions } from "../hooks";
 import { Ionicons } from "@expo/vector-icons";
 import StackNavContext from "../navigation/StackNavContext";
+import { getDialogProps } from "../navigation/NavigationService";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
@@ -64,7 +65,7 @@ export default props => {
   }, 0);
 
   const uploadDocuments = async () => {
-    const { container, folder } = props.route.params["dialog"];
+    const { container, folder } = getDialogProps(props.route);
     setUploading(true);
     for (let j = 0; j < files.length; j++) {
       const fileItem = files[j];

@@ -11,7 +11,8 @@ import StackNavContext from "./navigation/StackNavContext";
 import { NavigationContainer } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { navigationRef } from "./navigation/NavigationService";
-import { MenuProvider } from "react-native-popup-menu";
+import { OverflowMenuProvider } from "react-navigation-header-buttons";
+
 import {
   setServerRoot,
   setGlobalWait,
@@ -82,14 +83,14 @@ export default function App(props) {
     return (
       <ContextPool rootContext={rootContext} initialSize={10} minimumFree={3}>
         <StackNavContext.Provider value={{ options, setOptions }}>
-          <MenuProvider>
-            <NavigationContainer ref={navigationRef}>
-              <Containers />
-              <DialogHolder
-                ref={dialogHolderRef => {
-                  setDialogHolder(dialogHolderRef);
-                }}
-              />
+          <NavigationContainer ref={navigationRef}>
+            <Containers />
+            <DialogHolder
+              ref={dialogHolderRef => {
+                setDialogHolder(dialogHolderRef);
+              }}
+            />
+            <OverflowMenuProvider>
               <View style={styles.container}>
                 <Spinner visible={waitCursor} />
                 {Platform.OS === "ios" && <StatusBar barStyle="default" />}
@@ -101,8 +102,8 @@ export default function App(props) {
                 />
                 <FlashMessage position="bottom" />
               </View>
-            </NavigationContainer>
-          </MenuProvider>
+            </OverflowMenuProvider>
+          </NavigationContainer>
         </StackNavContext.Provider>
       </ContextPool>
     );

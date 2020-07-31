@@ -28,14 +28,14 @@ export default props => (
           <MoreButton
             actions={[
               {
-                label: "Photo",
-                icon: "camera",
-                action: ev => openPhotoUpload("posingle")
-              },
-              {
                 label: "Document Upload",
                 icon: "cloud-upload",
                 action: () => openDocumentUpload("posingle", "Attachments")
+              },
+              {
+                label: "Photo",
+                icon: "camera",
+                action: ev => openPhotoUpload("posingle")
               }
             ]}
           />

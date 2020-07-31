@@ -6572,10 +6572,10 @@ react-native-windows@^0.62.0-preview.1:
     use-subscription "^1.0.0"
     whatwg-fetch "^3.0.0"
 
-react-navigation-header-buttons@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/react-navigation-header-buttons/-/react-navigation-header-buttons-4.0.2.tgz#44c3390cd0e4017091dd4a1b741c3ddfed73c005"
-  integrity sha512-H08dyN7xPFxnEnK9L/IZgtfLsVRv4WiE7ldtwKpGsMnU3AAwZy/Txzoyqk4IZJSztDPU+9bC59b0FFMcpM1zDg==
+react-navigation-header-buttons@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-navigation-header-buttons/-/react-navigation-header-buttons-5.0.0.tgz#44d34aab0cee4840a87e3f07b61c9efd6aac90db"
+  integrity sha512-PqI7+29zCxjhloGXK2h0/eZfAm6MLKLchuloEn6PR/Bl0dlU4STFJlU8CmaJTwCqDLVJ6gM4AHu716L2kDbsfw==
   dependencies:
     invariant ">=2"
     react-native-platform-touchable "^1.1.1"

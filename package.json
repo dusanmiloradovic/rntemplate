@@ -54,13 +54,12 @@
 						"react-native-loading-spinner-overlay": "^1.1.0",
 						"react-native-modal-datetime-picker": "^8.7.1",
 						"react-native-picker-select": "^7.0.0",
-						"react-native-popup-menu": "^0.15.9",
 						"react-native-safe-area-context": "3.0.2",
 						"react-native-screens": "~2.9.0",
 						"react-native-vector-icons": "^6.6.0",
 						"react-native-web": "~0.11.7",
 						"react-native-webview": "^10.3.2",
-						"react-navigation-header-buttons": "^4.0.2",
+						"react-navigation-header-buttons": "^5.0.0",
 						"rn-pdf-reader-js": "^3.1.0"
 			},
 			"devDependencies": {

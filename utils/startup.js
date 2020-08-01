@@ -25,6 +25,7 @@ setOfflineDetector(() => {
 });
 
 prepareSQLDB(async db => {
+  console.log("preparing the sqlitedb");
   //  const fileUri = Asset.fromModule(require("../db.sql")).uri;
   //  //  await fileUri.downloadAsync();
   //  let file = await fetch(fileUri);

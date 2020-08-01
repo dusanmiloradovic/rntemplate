@@ -8,9 +8,11 @@ export default props => {
   useSetOptions(
     props.options
       ? props.options
-      : {
-          headerTitle: props.label
-        }
+      : props.label
+        ? {
+            headerTitle: props.label
+          }
+        : null
   );
 
   const FooterWait = () => {

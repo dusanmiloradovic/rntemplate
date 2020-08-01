@@ -1,14 +1,14 @@
 import React from "react";
 import NavigationService from "./NavigationService";
 import { createStackNavigator } from "@react-navigation/stack";
-import ListDialog from "../dialogs/ListDialog";
-import QbeListDialog from "../dialogs/QbeListDialog";
-import WorkflowDialog from "../dialogs/WorkflowDialog";
-import PhotoUpload from "../dialogs/PhotoUpload";
-import DocumentUpload from "../dialogs/DocumentUploader";
-import DocumentViewer from "../dialogs/DocumentViewer";
-import BarcodeScan from "../dialogs/BarcodeScan";
-import OfflineError from "../dialogs/OfflineErrorDialog";
+import ListDialog from "../dialogs/internal/ListDialog";
+import QbeListDialog from "../dialogs/internal/QbeListDialog";
+import WorkflowDialog from "../dialogs/internal/WorkflowDialog";
+import PhotoUpload from "../dialogs/internal/PhotoUpload";
+import DocumentUpload from "../dialogs/internal/DocumentUploader";
+import DocumentViewer from "../dialogs/internal/DocumentViewer";
+import BarcodeScan from "../dialogs/internal/BarcodeScan";
+import OfflineError from "../dialogs/internal/OfflineErrorDialog";
 
 const Stack = createStackNavigator();
 

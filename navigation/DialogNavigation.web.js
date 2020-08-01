@@ -14,12 +14,13 @@ const Stack = createStackNavigator();
 
 export default () => (
   <Stack.Navigator>
-    <Stack.Screen name="list" component={ListDialog} title="Select a value" />
     <Stack.Screen
       name="qbelist"
       component={QbeListDialog}
       title="Select one or more values"
     />
+    <Stack.Screen name="list" component={ListDialog} title="Select a value" />
+
     <Stack.Screen name="workflow" component={WorkflowDialog} />
     <Stack.Screen name="barcodeScan" component={BarcodeScan} />
     <Stack.Screen name="offlineError" component={OfflineError} />

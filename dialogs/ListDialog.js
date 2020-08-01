@@ -10,6 +10,7 @@ export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
   const iconName = platformPrefix + "-arrow-back";
   const d = getDialogProps(props.route);
+  if (!d) return null;
   return (
     <MList
       norows={20}

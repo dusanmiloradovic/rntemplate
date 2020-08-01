@@ -4,7 +4,7 @@ import NavigationService from "../navigation/NavigationService";
 import { closeDialog } from "../utils/utils";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
-import { Platform } from "react-native";
+import { Platform, View, Text } from "react-native";
 import { getDialogProps } from "../navigation/NavigationService";
 
 /*
@@ -15,7 +15,12 @@ export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
   const iconName = platformPrefix + "-arrow-back";
   const d = getDialogProps(props.route);
-
+  if (!d)
+    return (
+      <View>
+        <Text>QBE empty</Text>
+      </View>
+    );
   return (
     <MList
       norows={20}

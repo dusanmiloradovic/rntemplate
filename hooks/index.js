@@ -3,11 +3,12 @@ import { useNavigation } from "@react-navigation/native";
 import StackNavContext from "../navigation/StackNavContext";
 
 export const useSetOptions = (options, trigger) => {
+  console.log("calling useSetOptions");
   const navigation = useNavigation();
   const { setOptions } = useContext(StackNavContext);
   const firstRun = useRef(true);
   setTimeout(() => {
-    if (firstRun.current) {
+    if (firstRun.current && options) {
       setOptions(options);
       firstRun.current = false;
     }
@@ -16,7 +17,10 @@ export const useSetOptions = (options, trigger) => {
     () => {
       if (navigation) {
         navigation.addListener("focus", e => {
-          setOptions(options);
+          if (options) {
+            firstRun.current = false;
+            setOptions(options);
+          }
         });
         navigation.addListener("blur", e => {
           setOptions(null);

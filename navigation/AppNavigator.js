@@ -13,12 +13,12 @@ export default ({ loggedIn, setLoggedIn, options }) => {
           <>
             <Stack.Screen
               name="Main"
-              options={options ? options : { headerTitle: "MainStack" }}
+              options={options ? options : { headerTitle: "" }}
               component={MainTabNavigator}
             />
             <Stack.Screen
               name="Dialogs"
-              options={options ? options : { headerTitle: "DialogStack" }}
+              options={options ? options : { headerTitle: "" }}
               component={DialogNavigator}
             />
           </>

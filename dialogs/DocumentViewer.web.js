@@ -14,32 +14,6 @@ import { useSetOptions } from "../hooks";
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
 export default props => {
-  useSetOptions({
-    headerTitle: "Documents",
-    headerLeft: () => (
-      <Button
-        color="#fff"
-        onPress={closeDialog}
-        type="clear"
-        style={{ marginRight: 5 }}
-        icon={
-          <Ionicons
-            style={{ padding: 3 }}
-            name={platformPrefix + "-arrow-back"}
-            size={24}
-          />
-        }
-      />
-    )
-  });
-  const { container } = getDialogProps(props.route);
-  if (!container) {
-    return (
-      <View>
-        <Text>No container specified for the dialog</Text>
-      </View>
-    );
-  }
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [isImage, setIsImage] = useState(false);
@@ -58,6 +32,33 @@ export default props => {
     //  getServerRoot() + "/" + (await newDLURL.text()) + "?ver=" + Date.now();
     setFile(dlURL);
   };
+  useSetOptions({
+    headerTitle: "Documents",
+    headerLeft: () => (
+      <Button
+        color="#fff"
+        onPress={closeDialog}
+        type="clear"
+        style={{ marginRight: 5 }}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            name={platformPrefix + "-arrow-back"}
+            size={24}
+          />
+        }
+      />
+    ),
+    file
+  });
+  const { container } = getDialogProps(props.route);
+  if (!container) {
+    return (
+      <View>
+        <Text>No container specified for the dialog</Text>
+      </View>
+    );
+  }
 
   let comp = null;
   if (file == null) {

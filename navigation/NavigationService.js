@@ -11,8 +11,10 @@ export const navigationProps = {};
 export const navigationPropIdsStack = []; //this is used to clean up the navigationProps once the dialog is closed
 
 export const getDialogProps = route => {
-  const paramId = route.params["paramId"];
-  return navigationProps[paramId] && navigationProps[paramId]["dialog"];
+  const paramId = route.params && route.params["paramId"];
+  return (
+    paramId && navigationProps[paramId] && navigationProps[paramId]["dialog"]
+  );
 };
 
 function uuidv4() {

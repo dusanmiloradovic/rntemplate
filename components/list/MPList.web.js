@@ -12,9 +12,11 @@ export default props => {
   useSetOptions(
     props.options
       ? props.options
-      : {
-          headerTitle: props.label
-        }
+      : props.label
+        ? {
+            headerTitle: props.label
+          }
+        : null
   );
   const FooterLoader = ({ datalength }) => {
     const [ref, inView, entry] = useInView();

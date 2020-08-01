@@ -1,94 +1,105 @@
-import React, { PureComponent } from "react";
-import MaxList from "../components/Mlist";
-import { View, Image, Text, WebView, Linking } from "react-native";
+import React, { useState, useEffect } from "react";
+import MaxList from "../../components/Mlist";
+import { View, Image, Text, Linking, Platform } from "react-native";
 import { RelContainer, getDownloadURL, getLocalValue } from "mplus-react";
-import PDFReader from "rn-pdf-reader-js";
-import HeaderActionButtons from "../components/HeaderActionButtons";
-import { closeDialog } from "../utils/utils";
-import { SERVER_ROOT } from "react-native-dotenv";
-import { getDialogProps } from "../navigation/NavigationService";
+import { closeDialog } from "../../utils/utils";
+import { getServerRoot } from "../../utils/boot";
+import { getDialogProps } from "../../navigation/NavigationService";
+import { WebView } from "../../components/WebView";
+import { Button, ListItem, Icon } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import { useSetOptions } from "../../hooks";
 
-export default class extends PureComponent {
-  state = { file: null, fileType: null, isImage: false, isPdf: false };
-  static navigationOptions = ({ navigation }) => {
-    const buttonsData = [{ key: "close", label: "Close", action: closeDialog }];
-    const headerRightButtons = <HeaderActionButtons buttons={buttonsData} />;
-    return {
-      headerTitle: "View Attachments",
-      headerRight: headerRightButtons
-    };
-  };
-  render() {
-    const { container } = getDialogProps(this.props.route);
-    let ret = null;
-    if (this.state.file == null) {
-      ret = (
-        <MaxList
-          listTemplate="doclinks"
-          container="doclinks"
-          norows={20}
-          initdata={true}
-          columns={[
-            "document",
-            "doctype",
-            "description",
-            "changeby",
-            "changedate",
-            "urlname"
-          ]}
-          selectableF={this.openDocument}
-        />
-      );
-    } else {
-      ret = (
-        <WebView source={{ uri: this.state.file }} style={{ marginTop: 20 }} />
-      );
-      if (this.state.isImage) {
-        ret = (
-          <View style={{ flex: 1 }}>
-            <Image style={{ flex: 1 }} source={{ uri: this.state.file }} />
-          </View>
-        );
-      }
-      if (this.state.isPdf) {
-        ret = (
-          <View stylestyle={{ flex: 1 }}>
-            <PDFReader
-              source={{
-                uri: "http://www.africau.edu/images/default/sample.pdf"
-              }}
-            />
-          </View>
-        );
-      }
-    }
-    return (
-      <>
-        <RelContainer
-          id="doclinks"
-          container={container}
-          relationship="doclinks"
-        />
-        {ret}
-      </>
-    );
-  }
-  openDocument = async () => {
+const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
+
+export default props => {
+  const [file, setFile] = useState(null);
+  const [fileType, setFileType] = useState(null);
+  const [isImage, setIsImage] = useState(false);
+  const openDocument = async () => {
     const maximoURL = await getLocalValue("doclinks", "urlname"); //TO find the file type
     const fileExt = maximoURL.substr(maximoURL.lastIndexOf(".") + 1);
-    const isImage =
+    const _isImage =
       ["jpg", "JPG", "jpeg", "JPEF", "png", "PNG", "gif", "GIF"].indexOf(
         fileExt
       ) != -1;
     const isPdf = ["pdf", "PDF"].indexOf(fileExt) != -1;
-    const dlURL = await getDownloadURL("doclinks", "doclinksredirect");
-    const newDLURL = await fetch(dlURL, { credentials: "include" });
-    const dlTxt =
-      SERVER_ROOT + "/" + (await newDLURL.text()) + "?ver=" + Date.now();
-    if (isPdf) {
-      Linking.openURL(dlTxt);
+    setIsImage(_isImage);
+    if (Platform.OS === "web" || !isPdf) {
+      const dlURL = await getDownloadURL("doclinks");
+      setFile(dlURL);
     } else {
-      this.setState({ isImage, isPdf, file: dlTxt });
+      const dlURL = await getDownloadURL("doclinks", "doclinksredirect");
+      const newDLURL = await fetch(dlURL, { credentials: "include" });
+      const dlTxt =
+        getServerRoot() + "/" + (await newDLURL.text()) + "?ver=" + Date.now();
+      Linking.openURL(dlTxt);
     }
   };
-}
+  useSetOptions({
+    headerTitle: "Documents",
+    headerLeft: () => (
+      <Button
+        color="#fff"
+        onPress={closeDialog}
+        type="clear"
+        style={{ marginRight: 5 }}
+        icon={
+          <Ionicons
+            style={{ padding: 3 }}
+            name={platformPrefix + "-arrow-back"}
+            size={24}
+          />
+        }
+      />
+    ),
+    file
+  });
+  const { container } = getDialogProps(props.route);
+  if (!container) {
+    return (
+      <View>
+        <Text>No container specified for the dialog</Text>
+      </View>
+    );
+  }
+
+  let comp = null;
+  if (file == null) {
+    comp = (
+      <MaxList
+        listTemplate="doclinks"
+        container="doclinks"
+        norows={20}
+        initdata={true}
+        columns={[
+          "document",
+          "doctype",
+          "description",
+          "changeby",
+          "changedate",
+          "urlname"
+        ]}
+        selectableF={openDocument}
+      />
+    );
+  } else if (isImage) {
+    comp = (
+      <View style={{ flex: 1 }}>
+        <Image style={{ flex: 1 }} source={{ uri: file }} />
+      </View>
+    );
+  } else {
+    comp = <WebView source={{ uri: file }} />;
+  }
+  return (
+    <>
+      <RelContainer
+        id="doclinks"
+        container={container}
+        relationship="doclinks"
+      />
+      {comp}
+    </>
+  );
+};

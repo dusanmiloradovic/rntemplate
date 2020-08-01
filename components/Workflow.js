@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Section } from "./Section";
 import { Button } from "react-native-elements";
 import { getWorkflowDialog } from "mplus-react";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import { showMessage, hideMessage } from "react-native-flash-message";
-import { useNavigation } from "@react-navigation/native";
+import StackNavContext from "../navigation/StackNavContext";
+import { closeDialog } from "../utils/utils";
+import { Ionicons } from "@expo/vector-icons";
 
 const WFMessages = props => {
   useEffect(() => {
@@ -21,13 +23,42 @@ const WFMessages = props => {
 };
 
 /* the purpose is to put props to dialog, to display the buttons and the title in the header */
+const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 const WFWrapper = ({ buttons, wfTitle, section, warnings }) => {
-  const navigation = useNavigation();
+  const { setOptions } = useContext(StackNavContext);
   useEffect(
     () => {
-      navigation.setParams({
-        wfButtons: buttons,
-        wfTitle: wfTitle
+      const headerRight = () => (
+        <View style={{ flexDirection: "row", marginRight: 5 }}>
+          {buttons.map(({ buttonKey, action, title }) => (
+            <Button
+              key={buttonKey}
+              type="clear"
+              style={{ marginRight: 5 }}
+              onPress={action}
+            />
+          ))}
+        </View>
+      );
+      setOptions({
+        headerLeft: () => (
+          <Button
+            color="#fff"
+            onPress={closeDialog}
+            type="clear"
+            style={{ marginRight: 5 }}
+            icon={
+              <Ionicons
+                style={{ padding: 3 }}
+                name={platformPrefix + "-arrow-back"}
+                color="white"
+                size={24}
+              />
+            }
+          />
+        ),
+        headerTitle: wfTitle ? wfTitle : "Workflow",
+        headerRight
       });
     },
     [buttons, wfTitle]

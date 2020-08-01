@@ -2,13 +2,13 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import { getDocumentAsync } from "expo-document-picker";
 import { Button, ListItem, Icon } from "react-native-elements";
 import { View, TouchableOpacity, FlatList, Platform } from "react-native";
-import { closeDialog } from "../utils/utils";
+import { closeDialog } from "../../utils/utils";
 
 import { uploadFile, save } from "mplus-react";
-import { useSetOptions } from "../hooks";
+import { useSetOptions } from "../../hooks";
 import { Ionicons } from "@expo/vector-icons";
-import StackNavContext from "../navigation/StackNavContext";
-import { getDialogProps } from "../navigation/NavigationService";
+import StackNavContext from "../../navigation/StackNavContext";
+import { getDialogProps } from "../../navigation/NavigationService";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 

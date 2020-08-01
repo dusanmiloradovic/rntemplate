@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-native-elements";
-import { openDialog, closeDialog } from "../utils/utils";
-import { useSetOptions } from "../hooks";
+import { openDialog, closeDialog } from "../../utils/utils";
+import { useSetOptions } from "../../hooks";
 import { View, Platform, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 

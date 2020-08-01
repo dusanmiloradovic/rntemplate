@@ -1,11 +1,10 @@
 import React, { PureComponent } from "react";
-import HeaderActionButtons from "../components/HeaderActionButtons";
-import { closeDialog } from "../utils/utils";
+import { closeDialog } from "../../utils/utils";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
-import { useSetOptions } from "../hooks";
+import { useSetOptions } from "../../hooks";
 
 export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";

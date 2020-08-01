@@ -6,3 +6,5 @@ console.log("maximoplus web core library loaded");
 
 export const serverRoot = "http://192.168.0.146:8080";
 setServerRoot(serverRoot);
+
+export const getServerRoot = () => serverRoot;

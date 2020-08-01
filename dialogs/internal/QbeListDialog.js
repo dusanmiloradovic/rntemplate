@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import MList from "../components/Mlist";
-import NavigationService from "../navigation/NavigationService";
-import { closeDialog } from "../utils/utils";
+import MList from "../../components/Mlist";
+import NavigationService from "../../navigation/NavigationService";
+import { closeDialog } from "../../utils/utils";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform, View, Text } from "react-native";
-import { getDialogProps } from "../navigation/NavigationService";
+import { getDialogProps } from "../../navigation/NavigationService";
 
 /*
 Except for the title, the component is exactly the same as the ListDialog (qbe parts will be handled by framework. Copy/paste approach to demonstrate simplicity, you can choose the other if you want

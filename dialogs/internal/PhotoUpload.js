@@ -17,13 +17,13 @@ import {
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
-import { closeDialog } from "../utils/utils";
+import { closeDialog } from "../../utils/utils";
 import { uploadFile, save } from "mplus-react";
 import { showMessage, hideMessage } from "react-native-flash-message";
-import { useSetOptions } from "../hooks";
+import { useSetOptions } from "../../hooks";
 import { Button } from "react-native-elements";
 import { decode } from "base64-arraybuffer";
-import { getDialogProps } from "../navigation/NavigationService";
+import { getDialogProps } from "../../navigation/NavigationService";
 
 const styles = StyleSheet.create({
   uploading: {

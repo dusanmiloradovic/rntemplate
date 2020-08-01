@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import MList from "../components/Mlist";
-import { closeDialog } from "../utils/utils";
+import MList from "../../components/Mlist";
+import { closeDialog } from "../../utils/utils";
 import { Button } from "react-native-elements";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { getDialogProps } from "../navigation/NavigationService";
+import { getDialogProps } from "../../navigation/NavigationService";
 
 export default props => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";

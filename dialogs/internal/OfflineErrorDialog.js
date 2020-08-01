@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { FlatList, Platform } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
-import { closeDialog } from "../utils/utils";
-import listTemplates from "../components/listTemplates";
-import { getDialogProps } from "../navigation/NavigationService";
-import { useSetOptions } from "../hooks";
+import { closeDialog } from "../../utils/utils";
+import listTemplates from "../../components/listTemplates";
+import { getDialogProps } from "../../navigation/NavigationService";
+import { useSetOptions } from "../../hooks";
 
 import {
   HeaderButtons,

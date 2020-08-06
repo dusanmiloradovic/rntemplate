@@ -7919,15 +7919,15 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maximoplus-core-native@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/maximoplus-core-native/-/maximoplus-core-native-2.6.0.tgz#1747fc0e6b7b057b6730d764ecc2d9bed2d2e05f"
-  integrity sha512-bX8KkuWW+gEax1XZs5hqTptSkVoUYAnxlFLd4F8X5WCObcbI2HBFK5ViiUDYfDIbc+vV334IGsf0vtGdvf3dIA==
+maximoplus-core-native@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/maximoplus-core-native/-/maximoplus-core-native-2.6.1.tgz#b8b5e895fb2d411b6a5cda78df1bde66be8ac7cc"
+  integrity sha512-9dvz4AThbdAwBjcTNqndJwV/fbrNVcXJ5aV2cJ4ALZkb9dJfPzFyi/xVOUAGVGbD//ja/kcpPmLfdgccuRDjeA==
 
-maximoplus-core@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/maximoplus-core/-/maximoplus-core-2.6.0.tgz#109277ea32345aa4317fb632591a6fbf9bbbb5e9"
-  integrity sha512-yF+pgjOBHql7dX24BAI+eeIK4VclgbdlBa/eRuxamTzfgoWhuqqYTqEcy7PzGnYmck4bpFA7WvRdN9MaHrhmaw==
+maximoplus-core@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/maximoplus-core/-/maximoplus-core-2.6.1.tgz#bb08e01bfe5e529a2bf5b31b98ca02352b228251"
+  integrity sha512-42ncbbQwApgV/lnIGNYhIyAnGiFwCBPitQw+s/v+/h2T2w0HfSyEX4XHxtx3+7WGX70EpmsehkDni4DvC1F8tw==
 
 md5-file@^3.2.3:
   version "3.2.3"

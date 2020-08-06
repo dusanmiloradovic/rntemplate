@@ -4,13 +4,13 @@ import * as Font from "expo-font";
 import React, { useState } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { setDialogHolder } from "./utils/utils";
-import Containers from "./Containers";
-import AppNavigator from "./navigation/AppNavigator";
-import StackNavContext from "./navigation/StackNavContext";
+import { setDialogHolder } from "./src/utils/utils";
+import Containers from "./src/Containers";
+import AppNavigator from "./src/navigation/AppNavigator";
+import StackNavContext from "./src/navigation/StackNavContext";
 import { NavigationContainer } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
-import { navigationRef } from "./navigation/NavigationService";
+import { navigationRef } from "./src/navigation/NavigationService";
 import { OverflowMenuProvider } from "react-navigation-header-buttons";
 
 import {
@@ -20,7 +20,7 @@ import {
   setOnLoggedOff
 } from "mplus-react";
 
-import "./utils/boot";
+import "./src/utils/boot";
 
 import {
   AppContainer,
@@ -33,12 +33,12 @@ import { ContextPool } from "react-multiple-contexts";
 //import { useScreens } from "react-native-screens";
 //useScreens();
 
-import DialogHolder from "./screens/Dialogs";
+import DialogHolder from "./src/screens/Dialogs";
 import FlashMessage from "react-native-flash-message";
 
-import "./utils/db";
-import "./utils/offline";
-import "./utils/startup";
+import "./src/utils/db";
+import "./src/utils/offline";
+import "./src/utils/startup";
 
 const rootContext = React.createContext(null);
 setExternalRootContext(rootContext);

@@ -1,4 +1,4 @@
-import { AppLoading } from "expo";
+import { AppLoading } from "expo-app-loading";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import React, { useState } from "react";
@@ -17,7 +17,7 @@ import {
   setServerRoot,
   setGlobalWait,
   removeGlobalWait,
-  setOnLoggedOff
+  setOnLoggedOff,
 } from "mplus-react";
 
 import "./src/utils/boot";
@@ -26,7 +26,7 @@ import {
   AppContainer,
   SingleMboContainer,
   RelContainer,
-  setExternalRootContext
+  setExternalRootContext,
 } from "mplus-react";
 
 import { ContextPool } from "react-multiple-contexts";
@@ -49,9 +49,9 @@ const loggerPromise = new Promise((resolve, reject) => {
   loggerResolver = resolve;
 });
 
-maximoplus.core.setOnLoggedOff(err => {
+maximoplus.core.setOnLoggedOff((err) => {
   console.log("logged off");
-  loggerPromise.then(setLoggedIn => {
+  loggerPromise.then((setLoggedIn) => {
     setLoggedIn(false);
   });
 });
@@ -86,7 +86,7 @@ export default function App(props) {
           <NavigationContainer ref={navigationRef}>
             <Containers />
             <DialogHolder
-              ref={dialogHolderRef => {
+              ref={(dialogHolderRef) => {
                 setDialogHolder(dialogHolderRef);
               }}
             />
@@ -139,6 +139,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
+    backgroundColor: "#fff",
+  },
 });

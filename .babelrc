@@ -1,4 +1,5 @@
 {
-  "presets": ["babel-preset-expo" , "module:react-native-dotenv"],
+  "presets": ["babel-preset-expo"],
+  "plugins": [[ "module:react-native-dotenv"]],
   "ignore": ["node_modules/maximoplus-core-native/main.js"]
 }

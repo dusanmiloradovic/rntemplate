@@ -1,9 +1,9 @@
-import { DB_NAME } from "react-native-dotenv";
+import { DB_NAME } from "@env";
 import { openOfflineErrors } from "../utils/utils";
 import {
   setOfflineErrorsCb,
   prepareSQLDB,
-  setSQLDBCallback
+  setSQLDBCallback,
 } from "mplus-react";
 
 /**
@@ -16,6 +16,6 @@ setSQLDBCallback(() => {
   return window.openDatabase(dbName, "1.0", dbName, 20 * 1024 * 1024);
 });
 
-setOfflineErrorsCb(errors => {
+setOfflineErrorsCb((errors) => {
   openOfflineErrors(errors);
 });

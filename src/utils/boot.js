@@ -1,5 +1,5 @@
 import "maximoplus-core-native";
-import { SERVER_ROOT } from "react-native-dotenv";
+import { SERVER_ROOT } from "@env";
 import { setServerRoot } from "mplus-react";
 
 console.log("maximoplus core native module loaded");

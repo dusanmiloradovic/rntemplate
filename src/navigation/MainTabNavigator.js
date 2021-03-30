@@ -12,7 +12,7 @@ import POQbeSection from "../screens/POQbeSection";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
-  default: {}
+  default: {},
 });
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
@@ -25,13 +25,13 @@ export default () => (
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
         if (route.name === "List") {
-          iconName = platformPrefix + "-list";
+          iconName = "list";
         }
         if (route.name === "Details") {
-          iconName = platformPrefix + "-link";
+          iconName = "link";
         }
         if (route.name === "Search") {
-          iconName = platformPrefix + "-search";
+          iconName = "search";
         }
 
         return (
@@ -42,18 +42,18 @@ export default () => (
             color={color}
           />
         );
-      }
+      },
     })}
     tabBarOptions={{
       activeTintColor: "tomato",
-      inactiveTintColor: "gray"
+      inactiveTintColor: "gray",
     }}
   >
     <Tab.Screen name="List" component={POListScreen} />
     <Tab.Screen name="Details" component={SectionScreen} />
     <Tab.Screen
       options={{
-        title: "Search"
+        title: "Search",
       }}
       name="Search"
       component={POQbeSection}

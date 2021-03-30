@@ -6,7 +6,7 @@ import { OverflowMenu, HiddenItem } from "react-navigation-header-buttons";
 
 export default ({ actions }) => {
   const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
-  const iconName = platformPrefix + "-more";
+  const iconName = "ellipsis-vertical";
   return actions && actions.length > 0 ? (
     <OverflowMenu
       type="clear"
@@ -26,7 +26,7 @@ export default ({ actions }) => {
               />
             ) : null
           }
-          onPress={ev => {
+          onPress={(ev) => {
             action();
           }}
         />

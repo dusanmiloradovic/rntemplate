@@ -2,9 +2,9 @@ import React from "react";
 import listTemplates from "../listTemplates";
 import { useNavigation } from "@react-navigation/native";
 
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 
-export default props => {
+export default (props) => {
   const navigation = useNavigation();
   const ListTemplate = listTemplates[props.listTemplate];
   const _onPress = () => {
@@ -14,9 +14,16 @@ export default props => {
       props.navigate(navigation);
     }
   };
+  //  return (
+  //    <TouchableOpacity onPress={_onPress}>
+  //      <ListTemplate {...props.data} />
+  //    </TouchableOpacity>
+  //  );
   return (
     <TouchableOpacity onPress={_onPress}>
-      <ListTemplate {...props.data} />
+      <View>
+        <Text>Bla</Text>
+      </View>
     </TouchableOpacity>
   );
 };

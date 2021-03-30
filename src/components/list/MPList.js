@@ -1,18 +1,18 @@
 import React, { useState, PureComponent } from "react";
 import MPListItem from "./MPListItem";
-import { FlatList, View, ActivityIndicator } from "react-native";
+import { FlatList, View, ActivityIndicator, Text } from "react-native";
 import { useSetOptions } from "../../hooks";
 
-export default props => {
+export default (props) => {
   const [fetching, setFetching] = useState(null); //to prevent from excessive fetching
   useSetOptions(
     props.options
       ? props.options
       : props.label
-        ? {
-            headerTitle: props.label
-          }
-        : null
+      ? {
+          headerTitle: props.label,
+        }
+      : null
   );
 
   const FooterWait = () => {
@@ -23,7 +23,7 @@ export default props => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          paddingVertical: 10
+          paddingVertical: 10,
         }}
       >
         <ActivityIndicator animating size="small" />
@@ -35,16 +35,18 @@ export default props => {
     <FlatList
       ListFooterComponent={FooterWait}
       data={props.data}
-      renderItem={({ item }) => (
-        <MPListItem
-          {...item}
-          listTemplate={props.listTemplate}
-          navigate={props.navigate}
-        />
-      )}
-      onEndReached={ev => {
+      renderItem={({ item }) => {
+        return (
+          <MPListItem
+            {...item}
+            listTemplate={props.listTemplate}
+            navigate={props.navigate}
+          />
+        );
+      }}
+      onEndReached={(ev) => {
         //        console.log("end reached");
-        requestAnimationFrame(_ => {
+        requestAnimationFrame((_) => {
           if (fetching === null) {
             //initially don't fetch more, this is triggered even first time on render
             setFetching(false);
@@ -60,7 +62,7 @@ export default props => {
           }
         });
       }}
-      keyExtractor={item => item.key.toString()}
+      keyExtractor={(item) => item.key.toString()}
     />
   );
 };

@@ -3,9 +3,10 @@ import { ListItem } from "react-native-elements";
 import { Icon } from "react-native-elements";
 
 export default {
-  po: ({ DESCRIPTION, PONUM, STATUS }) => (
-    <ListItem title={DESCRIPTION} subtitle={PONUM + " " + STATUS} />
-  ),
+  po: ({ DESCRIPTION, PONUM, STATUS }) => {
+    console.log("Calling po template that is not working");
+    return <ListItem title={DESCRIPTION} subtitle={PONUM + " " + STATUS} />;
+  },
   valuelist: ({ VALUE, DESCRIPTION }) => (
     <ListItem title={VALUE} subtitle={DESCRIPTION} />
   ),
@@ -29,5 +30,5 @@ export default {
   ),
   offlineErrors: ({ data, message }) => (
     <ListItem title={data.PONUM} subtitle={message} />
-  )
+  ),
 };

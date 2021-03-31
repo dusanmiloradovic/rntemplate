@@ -14,16 +14,9 @@ export default (props) => {
       props.navigate(navigation);
     }
   };
-  //  return (
-  //    <TouchableOpacity onPress={_onPress}>
-  //      <ListTemplate {...props.data} />
-  //    </TouchableOpacity>
-  //  );
   return (
     <TouchableOpacity onPress={_onPress}>
-      <View>
-        <Text>Bla</Text>
-      </View>
+      <ListTemplate {...props.data} />
     </TouchableOpacity>
   );
 };

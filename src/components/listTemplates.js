@@ -3,32 +3,42 @@ import { ListItem } from "react-native-elements";
 import { Icon } from "react-native-elements";
 
 export default {
-  po: ({ DESCRIPTION, PONUM, STATUS }) => {
-    console.log("Calling po template that is not working");
-    return <ListItem title={DESCRIPTION} subtitle={PONUM + " " + STATUS} />;
-  },
+  po: ({ DESCRIPTION, PONUM, STATUS }) => (
+    <ListItem bottomDivider>
+      <ListItem.Title>{DESCRIPTION}</ListItem.Title>
+      <ListItem.Subtitle>{PONUM + " " + STATUS}</ListItem.Subtitle>
+    </ListItem>
+  ),
   valuelist: ({ VALUE, DESCRIPTION }) => (
-    <ListItem title={VALUE} subtitle={DESCRIPTION} />
+    <ListItem bottomDivider>
+      <ListItem.Title>{DESCRIPTION}</ListItem.Title>
+      <ListItem.Subtitle>{VALUE}</ListItem.Subtitle>
+    </ListItem>
   ),
   qbevaluelist: ({ VALUE, DESCRIPTION, _SELECTED }) => (
-    <ListItem
-      title={VALUE}
-      subtitle={DESCRIPTION}
-      leftIcon={
-        _SELECTED === "Y" ? <Icon name="check" type="font-awesome" /> : null
-      }
-    />
+    <ListItem bottomDivider>
+      {_SELECTED === "Y" ? <Icon name="check" type="font-awesome" /> : null}
+      <ListItem.Title>{DESCRIPTION}</ListItem.Title>
+      <ListItem.Subtitle>{VALUE}</ListItem.Subtitle>
+    </ListItem>
   ),
   personlist: ({ PERSONID, DISPLAYNAME }) => (
-    <ListItem title={PERSONID} subtitle={DISPLAYNAME} />
+    <ListItem bottomDivider>
+      <ListItem.Title>{PERSONID}</ListItem.Title>
+      <ListItem.Subtitle>{DISPLAYNAME}</ListItem.Subtitle>
+    </ListItem>
   ),
   doclinks: ({ DESCRIPTION, DOCTYPE, URLNAME }) => (
-    <ListItem title={DESCRIPTION} subtitle={DOCTYPE} />
+    <ListItem bottomDivider>
+      <ListItem.Title>{DESCRIPTION}</ListItem.Title>
+      <ListItem.Subtitle>{DOCTYPE}</ListItem.Subtitle>
+    </ListItem>
   ),
-  po: ({ DESCRIPTION, PONUM, STATUS }) => (
-    <ListItem title={DESCRIPTION} subtitle={PONUM + " " + STATUS} />
-  ),
+
   offlineErrors: ({ data, message }) => (
-    <ListItem title={data.PONUM} subtitle={message} />
+    <ListItem bottomDivider>
+      <ListItem.Title>{data.PONUM}</ListItem.Title>
+      <ListItem.Subtitle>{message}</ListItem.Subtitle>
+    </ListItem>
   ),
 };

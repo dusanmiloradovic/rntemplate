@@ -12,19 +12,47 @@ import OfflineError from "../dialogs/internal/OfflineErrorDialog";
 
 const Stack = createStackNavigator();
 
-export default props => (
+export default (props) => (
   <Stack.Navigator>
-    <Stack.Screen name="list" component={ListDialog} title="Select a value" />
+    <Stack.Screen
+      name="list"
+      component={ListDialog}
+      options={{ title: "Select a value", headerShown: false }}
+    />
     <Stack.Screen
       name="qbelist"
       component={QbeListDialog}
-      title="Select one or more values"
+      options={{ title: "Select one or more values" }}
     />
-    <Stack.Screen name="workflow" component={WorkflowDialog} />
-    <Stack.Screen name="photoUpload" component={PhotoUpload} />
-    <Stack.Screen name="documentUpload" component={DocumentUpload} />
-    <Stack.Screen name="documentViewer" component={DocumentViewer} />
-    <Stack.Screen name="barcodeScan" component={BarcodeScan} />
-    <Stack.Screen name="offlineError" component={OfflineError} />
+    <Stack.Screen
+      name="workflow"
+      options={{ headerShown: false }}
+      component={WorkflowDialog}
+    />
+    <Stack.Screen
+      name="photoUpload"
+      options={{ headerShown: false }}
+      component={PhotoUpload}
+    />
+    <Stack.Screen
+      name="documentUpload"
+      options={{ headerShown: false }}
+      component={DocumentUpload}
+    />
+    <Stack.Screen
+      name="documentViewer"
+      options={{ headerShown: false }}
+      component={DocumentViewer}
+    />
+    <Stack.Screen
+      name="barcodeScan"
+      options={{ headerShown: false }}
+      component={BarcodeScan}
+    />
+    <Stack.Screen
+      name="offlineError"
+      options={{ headerShown: false }}
+      component={OfflineError}
+    />
   </Stack.Navigator>
 );

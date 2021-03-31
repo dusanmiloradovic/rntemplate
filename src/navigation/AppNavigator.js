@@ -18,13 +18,15 @@ export default ({ loggedIn, setLoggedIn, options }) => {
             />
             <Stack.Screen
               name="Dialogs"
-              options={options ? options : { headerTitle: "" }}
+              options={
+                options ? options : { headerTitle: "", headerShown: false }
+              }
               component={DialogNavigator}
             />
           </>
         ) : (
           <Stack.Screen name="Login">
-            {props => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
+            {(props) => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
           </Stack.Screen>
         )}
       </Stack.Navigator>

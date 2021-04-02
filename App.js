@@ -59,9 +59,9 @@ maximoplus.core.setOnLoggedOff((err) => {
 
 setOfflineNotifier((offline) => {
   if (offline) {
-    showMessage("Offline mode");
+    showMessage({ message: "Offline mode", type: "warning" });
   } else {
-    showMessage("Online mode");
+    showMessage({ message: "Online mode", type: "warning" });
   }
 });
 

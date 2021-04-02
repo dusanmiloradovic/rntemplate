@@ -18,6 +18,7 @@ import {
   setGlobalWait,
   removeGlobalWait,
   setOnLoggedOff,
+  setOfflineNotifier,
 } from "mplus-react";
 
 import "./src/utils/boot";
@@ -34,7 +35,7 @@ import { ContextPool } from "react-multiple-contexts";
 //useScreens();
 
 import DialogHolder from "./src/screens/Dialogs";
-import FlashMessage from "react-native-flash-message";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 import "./src/utils/db";
 import "./src/utils/offline";
@@ -54,6 +55,14 @@ maximoplus.core.setOnLoggedOff((err) => {
   loggerPromise.then((setLoggedIn) => {
     setLoggedIn(false);
   });
+});
+
+setOfflineNotifier((offline) => {
+  if (offline) {
+    showMessage("Offline mode");
+  } else {
+    showMessage("Online mode");
+  }
 });
 
 export default function App(props) {

@@ -22,7 +22,7 @@ export default (props) => (
     <Stack.Screen
       name="qbelist"
       component={QbeListDialog}
-      options={{ title: "Select one or more values" }}
+      options={{ title: "Select one or more values", headerShown: false }}
     />
     <Stack.Screen
       name="workflow"

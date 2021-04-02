@@ -12,7 +12,7 @@ import { useSetOptions } from "../../hooks";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
-export default props => {
+export default (props) => {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [isImage, setIsImage] = useState(false);
@@ -53,7 +53,7 @@ export default props => {
         }
       />
     ),
-    file
+    file,
   });
   const { container } = getDialogProps(props.route);
   if (!container) {
@@ -78,16 +78,10 @@ export default props => {
           "description",
           "changeby",
           "changedate",
-          "urlname"
+          "urlname",
         ]}
         selectableF={openDocument}
       />
-    );
-  } else if (isImage) {
-    comp = (
-      <View style={{ flex: 1 }}>
-        <Image style={{ flex: 1 }} source={{ uri: file }} />
-      </View>
     );
   } else {
     comp = <WebView source={{ uri: file }} />;

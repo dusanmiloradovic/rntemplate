@@ -1,0 +1,13 @@
+FROM node:14.7.0
+RUN addgroup --gid 1024 rndemo
+RUN adduser --disabled-password --gecos "" --force-badname --ingroup rndemo rndemo
+RUN npm install -g expo-cli
+WORKDIR /rndemo
+COPY . .
+RUN chown -R rndemo:rndemo /rndemo
+RUN chmod 755 /rndemo
+USER rndemo
+RUN yarn install
+RUN cp worker.js.bak node_modules/metro/src/JSTransformer/worker.js
+CMD expo start --web
+EXPOSE 19006

@@ -12,7 +12,7 @@ import { getDialogProps } from "../../navigation/NavigationService";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
-export default props => {
+export default (props) => {
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const existFiles = useRef(false);
@@ -52,7 +52,7 @@ export default props => {
               />
             }
           />
-        ) : null
+        ) : null,
     });
   };
   useEffect(uf, [files]);
@@ -75,7 +75,7 @@ export default props => {
           : {
               name: fileItem.name,
               uri: fileItem.uri,
-              type: "application/octet-stream"
+              type: "application/octet-stream",
             };
       try {
         fileItem.status = "uploading";
@@ -126,7 +126,14 @@ export default props => {
         color={iconColor}
       />
     );
-    return <ListItem title={item.name} bottomDivider rightIcon={rightIcon} />;
+    return (
+      <ListItem bottomDivider>
+        {rightIcon}
+        <ListItem.Content>
+          <ListItem.Title>{item.name}</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
+    );
   };
 
   const readDocument = async () => {

@@ -3,7 +3,7 @@ import React, {
   createRef,
   useState,
   useEffect,
-  useRef
+  useRef,
 } from "react";
 import {
   Text,
@@ -12,7 +12,7 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
-  Platform
+  Platform,
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -36,16 +36,16 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
-export default props => {
+export default (props) => {
   const CameraRef = useRef();
   const takePicture = () => {
     if (CameraRef.current) {
       CameraRef.current.takePictureAsync({
-        onPictureSaved
+        onPictureSaved,
       });
       setDisplayShootButton(false);
       setUploadReady(true);
@@ -97,7 +97,7 @@ export default props => {
         color="white"
         type="clear"
         style={{ marginRight: 5 }}
-        onPress={ev => {
+        onPress={(ev) => {
           upload(photoUri.current);
         }}
         icon={
@@ -105,7 +105,7 @@ export default props => {
             style={{ padding: 3 }}
             size={24}
             color="white"
-            name={platformPrefix + "-cloud-upload"}
+            name="cloud-upload"
           />
         }
       />
@@ -120,7 +120,7 @@ export default props => {
             style={{ padding: 3 }}
             size={24}
             color="white"
-            name={platformPrefix + "-camera"}
+            name="camera"
           />
         }
       />
@@ -135,7 +135,7 @@ export default props => {
             style={{ padding: 3 }}
             size={24}
             color="white"
-            name={platformPrefix + "-reverse-camera"}
+            name="camera-reverse"
           />
         }
       />
@@ -151,7 +151,7 @@ export default props => {
     headerTransparent: true,
     headerLeft: backButton,
     headerStyle: { borderBottomWidth: 0 },
-    headerRight: headerRightButtons
+    headerRight: headerRightButtons,
   });
   const upload = () => {
     if (!photoUri.current) {
@@ -180,7 +180,7 @@ export default props => {
       file = {
         name: fileName,
         uri: photoUri.current,
-        type: fileType
+        type: fileType,
       };
     }
     setUploading(true);
@@ -192,7 +192,7 @@ export default props => {
         showMessage("Photo uploaded");
         closeDialog();
       })
-      .catch(err => {
+      .catch((err) => {
         setUploading(false);
         alert(err);
       });
@@ -206,7 +206,7 @@ export default props => {
     );
   };
 
-  const onPictureSaved = async photo => {
+  const onPictureSaved = async (photo) => {
     photoUri.current = photo.uri;
     setDisplayShootButton(true);
   };
@@ -233,7 +233,7 @@ export default props => {
         style={{
           flex: 1,
           alignSelf: "flex-end",
-          alignItems: "center"
+          alignItems: "center",
         }}
         onPress={takePicture}
       >
@@ -250,7 +250,7 @@ export default props => {
             style={{
               flex: 1,
               backgroundColor: "transparent",
-              flexDirection: "row"
+              flexDirection: "row",
             }}
           >
             {shootButton}

@@ -45,7 +45,7 @@ export default (props) => {
         );
       }}
       onEndReached={(ev) => {
-        //        console.log("end reached");
+        console.log("end reached");
         requestAnimationFrame((_) => {
           if (fetching === null) {
             //initially don't fetch more, this is triggered even first time on render

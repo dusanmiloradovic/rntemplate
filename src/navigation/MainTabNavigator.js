@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import POQbeSection from "../screens/POQbeSection";
 import SimpleMap from "../components/SimpleMap";
+import SimpleMapAdapterScreen from "../screens/SimpleMapAdapterScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -60,6 +61,6 @@ export default () => (
       name="Search"
       component={POQbeSection}
     />
-    <Tab.Screen name="Map" component={SimpleMap} />
+    <Tab.Screen name="Map" component={SimpleMapAdapterScreen} />
   </Tab.Navigator>
 );

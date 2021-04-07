@@ -3,7 +3,7 @@ import MapView from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import * as Location from "expo-location";
 
-export default (props) => {
+export default ({ coords, title, description, onLocationPress }) => {
   const [location, setLocation] = useState({ coords: {} });
   const [markerCoordinate, setMarketCoordinate] = useState(null);
 
@@ -21,27 +21,24 @@ export default (props) => {
     })();
   }, []);
 
+  const effectiveCoords = coords ? coords : location.coords;
+  const effectiveRegion = {
+    ...effectiveCoords,
+    latitudeDelta: 0.015,
+    longitudeDelta: 0.0121,
+  };
   return (
     <View style={styles.container}>
       <MapView
-        onPress={(ev) => setMarketCoordinate(ev.nativeEvent.coordinate)}
+        onPress={(ev) => onLocationPress(ev.nativeEvent.coordinate)}
         style={styles.map}
-        region={{
-          latitude: location.coords.latitude
-            ? location.coords.latitude
-            : 24.37278,
-          longitude: location.coords.longitude
-            ? location.coords.longitude
-            : 54.68729,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}
+        region={effectiveRegion}
       >
-        {markerCoordinate ? (
+        {coords ? (
           <MapView.Marker
-            title="Go there"
-            description="Hello!"
-            coordinate={markerCoordinate}
+            title={title}
+            description={description}
+            coordinate={coords}
           />
         ) : null}
       </MapView>

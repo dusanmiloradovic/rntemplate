@@ -9,13 +9,12 @@ import POListScreen from "../screens/POList";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import POQbeSection from "../screens/POQbeSection";
+import SimpleMap from "../components/SimpleMap";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
   default: {},
 });
-
-const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +33,9 @@ export default () => (
           iconName = "search";
         }
 
+        if (route.name === "Map") {
+          iconName = "map";
+        }
         return (
           <Ionicons
             name={iconName}
@@ -58,5 +60,6 @@ export default () => (
       name="Search"
       component={POQbeSection}
     />
+    <Tab.Screen name="Map" component={SimpleMap} />
   </Tab.Navigator>
 );

@@ -4,18 +4,17 @@ import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { closeDialog } from "../../utils/utils";
 import listTemplates from "../../components/listTemplates";
-import { getDialogProps } from "../../navigation/NavigationService";
 import { useSetOptions } from "../../hooks";
 
 import {
   HeaderButtons,
   Item,
-  HeaderButton
+  HeaderButton,
 } from "react-navigation-header-buttons";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
-export default props => {
+export default (props) => {
   const { errors } = getDialogProps(props.route);
   const ErrorTemplate = listTemplates.offlineErrors;
   useSetOptions({
@@ -35,13 +34,13 @@ export default props => {
           />
         }
       />
-    )
+    ),
   });
   return (
     <FlatList
       data={errors}
       renderItem={({ item }) => <ErrorTemplate {...item} />}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
     />
   );
 };

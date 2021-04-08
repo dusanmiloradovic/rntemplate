@@ -1,5 +1,4 @@
 import React from "react";
-import NavigationService from "./NavigationService";
 import { createStackNavigator } from "@react-navigation/stack";
 import ListDialog from "../dialogs/internal/ListDialog";
 import QbeListDialog from "../dialogs/internal/QbeListDialog";

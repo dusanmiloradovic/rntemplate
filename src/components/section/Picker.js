@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import { Picker } from "@react-native-picker/picker";
 import { getPickerList } from "mplus-react";
 
 const textStyle = {
@@ -8,27 +8,33 @@ const textStyle = {
   fontWeight: "bold",
   fontSize: 15,
   marginLeft: 10,
-  marginTop: 10
+  marginTop: 10,
 };
 
 /* HOC can't use hooks, we need to make ordinary function */
-const SPicker = props => {
+const SPicker = (props) => {
   const [picked, setPicked] = useState(props.pickerValue);
-  const changeMaxValue = value => {
+  const changeMaxValue = (value) => {
     if (value != picked) {
       props.changeListener(value);
       setPicked(value);
     }
   };
+  const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
     <View>
       <Text style={textStyle}>{props.label}</Text>
-      <RNPickerSelect
-        value={picked}
-        onValueChange={changeMaxValue}
-        items={props.rows}
-      />
+      <Picker
+        selectedValue={props.pickerValue}
+        onValueChange={(itemValue, itemIndex) => {
+          props.changeListener(itemValue);
+        }}
+      >
+        {props.rows.map(({ label, value }) => (
+          <Picker.Item key={value} label={label} value={value} />
+        ))}
+      </Picker>
     </View>
   );
 };
@@ -40,7 +46,7 @@ const PickerList = getPickerList(
       selected,
       value: optionKey,
       label: optionVal,
-      changeListener
+      changeListener,
     };
   },
   (label, changeListener, rows, props) => {

@@ -9,6 +9,7 @@ import DocumentUpload from "../dialogs/internal/DocumentUploader";
 import DocumentViewer from "../dialogs/internal/DocumentViewer";
 import BarcodeScan from "../dialogs/internal/BarcodeScan";
 import OfflineError from "../dialogs/internal/OfflineErrorDialog";
+import TestDialog from "../dialogs/internal/TestDialog";
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,11 @@ export default (props) => (
       name="offlineError"
       options={{ headerShown: false }}
       component={OfflineError}
+    />
+    <Stack.Screen
+      name="testDialog"
+      options={{ headerShown: false }}
+      component={TestDialog}
     />
   </Stack.Navigator>
 );

@@ -8,14 +8,15 @@ import {
   openPhotoUpload,
   openDocumentUpload,
   openDialog,
-  openDocumentViewer
+  openDocumentViewer,
+  openWorkflowDialog,
 } from "../utils/utils";
 
 const platformPrefix = Platform.OS === "ios" ? "ios" : "md";
 
 const saveAction = () => save("posingle");
 
-export default props => (
+export default (props) => (
   <Section
     container="posingle"
     label="PO Details"
@@ -35,22 +36,27 @@ export default props => (
               {
                 label: "Document Upload",
                 icon: "cloud-upload",
-                action: () => openDocumentUpload("posingle", "Attachments")
+                action: () => openDocumentUpload("posingle", "Attachments"),
               },
               {
                 label: "Photo",
                 icon: "camera",
-                action: ev => openPhotoUpload("posingle")
+                action: (ev) => openPhotoUpload("posingle"),
               },
               {
                 label: "Documents",
                 icon: "book",
-                action: () => openDocumentViewer("posingle")
-              }
+                action: () => openDocumentViewer("posingle"),
+              },
+              {
+                label: "Workflow",
+                icon: "cog",
+                action: () => openWorkflowDialog("posingle", "POSTATUS"),
+              },
             ]}
           />
         </View>
-      )
+      ),
     }}
     columns={[
       "ponum",
@@ -61,17 +67,17 @@ export default props => (
       "vendor",
       "vendor.phone",
       "revcomments",
-      "po9"
+      "po9",
     ]}
     metadata={{
       SHIPVIA: {
         hasLookup: true,
-        listTemplate: "valuelist"
+        listTemplate: "valuelist",
       },
       "VENDOR.PHONE": {
-        phonenum: true
+        phonenum: true,
       },
-      PO9: { barcode: true }
+      PO9: { barcode: true },
     }}
   />
 );

@@ -10109,15 +10109,15 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maximoplus-core-native@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/maximoplus-core-native/-/maximoplus-core-native-2.7.1.tgz#229b6574d5459113154e169ede5c0ece90e479da"
-  integrity sha512-nyzdmEz/Tbgfc4ur58t02DsUDe+TzWMd0LbasCxsnXo2HBVwo+w9+WmWVs9HAf3DfZLVhhkCebDhRPOvwvVNoQ==
+maximoplus-core-native@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/maximoplus-core-native/-/maximoplus-core-native-2.7.2.tgz#3ecd4f64ee54071ce7470e06c196ba17e0b69073"
+  integrity sha512-9S2zf9XeX3EaHv4rfs04NV4uJh5V3CheMvSU3zEUKrpehUKi4eazsFI1JNmM4lnQIxRqYNoV0xn+AA1RUyrY6g==
 
-maximoplus-core@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/maximoplus-core/-/maximoplus-core-2.7.1.tgz#3b58124d52c05284ffa2cf82081e727335814876"
-  integrity sha512-iIcx/VDFs0iFULBIeB4ESf06V8icuEqrmhQosE0XM98PHSNS4vx2Xkuf9GYOP8745bGN3oaBS/PptoBFvw27yw==
+maximoplus-core@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/maximoplus-core/-/maximoplus-core-2.7.2.tgz#bd00a886a09df1dde2ed5b8540c1ee8f16ad9ce9"
+  integrity sha512-UZNFzMhhgjvzLs8FpKBWtEUsv/Gq59zlRFgVqeVkExVpNsjhXveq+WZtBJnQXD9C6U+0x5pj6oistR6AjeMSDA==
 
 md5-file@^3.2.3:
   version "3.2.3"
@@ -10741,10 +10741,10 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mplus-react@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/mplus-react/-/mplus-react-1.4.5.tgz#a3b31ea112dfc7a9e4090f90dc78f12e1a552b52"
-  integrity sha512-i576+9ZtGaj7uGS6hOiLqA4Obew9jA8BGZZVooiuTjfFIQYnrMkBM/fZ1YIbFsFsI27AzPEQ50WEXaAzUHDpww==
+mplus-react@^1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/mplus-react/-/mplus-react-1.4.6.tgz#15ca031b134b20c1ec19c0c973aef0ad39782543"
+  integrity sha512-7QbH4VNJFaz0000nto5ByrGvasIyKlHIyhuqXxx1sHC+SkWY4eMczUtbKU2oYuF1lT0nGHXx9H+q7j2Mev2i8Q==
   dependencies:
     base64-arraybuffer "^0.2.0"
     flyd "^0.2.8"

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import * as Location from "expo-location";
 
 export default ({ coords, title, description, onLocationPress }) => {
-  const [location, setLocation] = useState({ coords: {} });
+  const [location, setLocation] = useState(null);
   const [markerCoordinate, setMarketCoordinate] = useState(null);
 
   useEffect(() => {
@@ -17,16 +17,17 @@ export default ({ coords, title, description, onLocationPress }) => {
 
       let _location = await Location.getCurrentPositionAsync({});
       setLocation(_location);
-      console.log(JSON.stringify(_location));
     })();
   }, []);
 
-  const effectiveCoords = coords ? coords : location.coords;
-  const effectiveRegion = {
-    ...effectiveCoords,
-    latitudeDelta: 0.015,
-    longitudeDelta: 0.0121,
-  };
+  const effectiveCoords = coords ? coords : location && location.coords;
+  const effectiveRegion = effectiveCoords
+    ? {
+        ...effectiveCoords,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      }
+    : null;
   return (
     <View style={styles.container}>
       <MapView

@@ -5,12 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListScreen from "../screens/ListScreen";
 import SectionScreen from "../screens/SectionScreen";
 import QbeSectionScreen from "../screens/QbeSectionScreen";
-import POListScreen from "../screens/POList";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
-import POQbeSection from "../screens/POQbeSection";
-import SimpleMap from "../components/SimpleMap";
-import SimpleMapAdapterScreen from "../screens/SimpleMapAdapterScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -52,15 +48,14 @@ export default () => (
       inactiveTintColor: "gray",
     }}
   >
-    <Tab.Screen name="List" component={POListScreen} />
+    <Tab.Screen name="List" component={ListScreen} />
     <Tab.Screen name="Details" component={SectionScreen} />
     <Tab.Screen
       options={{
         title: "Search",
       }}
       name="Search"
-      component={POQbeSection}
+      component={QbeSectionScreen}
     />
-    <Tab.Screen name="Map" component={SimpleMapAdapterScreen} />
   </Tab.Navigator>
 );

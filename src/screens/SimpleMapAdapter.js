@@ -1,7 +1,7 @@
 import React from "react";
 import { getComponentAdapter } from "mplus-react";
 import SimpleMap from "../components/SimpleMap";
-const SimpleMapAdapter = getComponentAdapter(({ data, setMaxValue }) => {
+const Wrapped = ({ data, setMaxValue }) => {
   let coords = null;
   if (data && data.DESCRIPTION) {
     const splitted = data.DESCRIPTION.split(",");
@@ -9,15 +9,17 @@ const SimpleMapAdapter = getComponentAdapter(({ data, setMaxValue }) => {
       coords = { latitude: splitted[0], longitude: splitted[1] };
     }
   }
+  const onLocationPress = ({ longitude, latitude }) => {
+    setMaxValue("DESCRIPTION", longitude + "," + latitude);
+  };
   return (
     <SimpleMap
       coords={coords}
       title={data && data.PONUM}
       description={data && data.VENDOR}
-      onLocationPress={({ longitude, latitude }) => {
-        setMaxValue("DESCRIPTION", longitude + "," + latitude);
-      }}
+      onLocationPress={onLocationPress}
     />
   );
-});
+};
+const SimpleMapAdapter = getComponentAdapter(Wrapped);
 export default SimpleMapAdapter;
